@@ -1,35 +1,35 @@
-
+<!DOCTYPE html>
 <html lang="pt-PT">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Check-Up IMC Infantil (Depurado - Syntax Fix)</title>
+  <title>Calculadora de IMC e Análise de Saúde v3</title>
   <style>
     :root {
-      --primary-color: #007bff; /* Bright Blue */
+      --primary-color: #007bff; 
       --primary-darker: #0056b3;
-      --secondary-color: #6c757d; /* Grey */
+      --secondary-color: #6c757d; 
       --secondary-darker: #5a6268;
-      --success-color: #28a745; /* Green */
+      --success-color: #28a745; 
       --success-darker: #1e7e34;
-      --info-color: #17a2b8; /* Teal */
+      --info-color: #17a2b8; 
       --info-darker: #117a8b;
-      --danger-color: #dc3545; /* Red */
+      --danger-color: #dc3545; 
       --danger-darker: #c82333;
-      --warning-color: #ffc107; /* Amber/Yellow for warnings */
+      --warning-color: #ffc107; 
       --light-bg: #f8f9fa;
       --lighter-bg: #ffffff;
-      --text-color: #343a40;
+      --text-color: #212529; 
       --text-muted: #6c757d;
       --border-color: #dee2e6;
-      --border-radius-sm: 0.25rem; /* 4px */
-      --border-radius-md: 0.5rem;  /* 8px */
-      --border-radius-lg: 0.8rem;  /* 12px */
-      --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
-      --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
-      --shadow-lg: 0 10px 30px rgba(0, 70, 130, 0.1);
-      --font-family-sans-serif: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", Arial, sans-serif;
-      --transition-speed: 0.2s;
+      --border-radius-sm: 0.25rem; 
+      --border-radius-md: 0.5rem;  
+      --border-radius-lg: 0.75rem; 
+      --shadow-sm: 0 0.125rem 0.25rem rgba(0,0,0,0.075);
+      --shadow-md: 0 0.5rem 1rem rgba(0,0,0,0.1);
+      --shadow-lg: 0 1rem 3rem rgba(0,0,0,0.12);
+      --font-family-sans-serif: 'Segoe UI', Roboto, "Helvetica Neue", Arial, sans-serif;
+      --transition-speed: 0.25s;
       --input-focus-color: rgba(0,123,255,.25);
     }
 
@@ -37,7 +37,7 @@
 
     body {
       font-family: var(--font-family-sans-serif);
-      background-color: #eef2f7; 
+      background-color: #e9ecef; 
       color: var(--text-color);
       padding: 1rem;
       line-height: 1.6;
@@ -46,84 +46,84 @@
     }
 
     .container {
-      max-width: 1100px;
+      max-width: 1140px; 
       margin: 2rem auto;
       background: var(--lighter-bg);
-      padding: clamp(1.5rem, 4vw, 3rem); 
+      padding: clamp(2rem, 4vw, 3.5rem); 
       border-radius: var(--border-radius-lg);
       box-shadow: var(--shadow-lg);
     }
 
-    h1 {
+    h1#mainTitle { 
       text-align: center;
       color: var(--primary-darker);
       margin-bottom: 2.5rem;
       font-weight: 600;
-      font-size: clamp(1.8rem, 5vw, 2.4rem); 
+      font-size: clamp(2rem, 5vw, 2.6rem); 
     }
 
     .grid {
       display: grid;
-      gap: 2.5rem;
-      grid-template-columns: 340px 1fr; 
+      gap: 3rem; 
+      grid-template-columns: 360px 1fr; 
     }
-    @media(max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+    @media(max-width: 992px) { .grid { grid-template-columns: 1fr; } } 
 
     .card {
       background: var(--lighter-bg);
-      padding: clamp(1rem, 3vw, 2rem);
+      padding: clamp(1.5rem, 3vw, 2.5rem);
       border-radius: var(--border-radius-md);
       border: 1px solid var(--border-color);
-      box-shadow: var(--shadow-sm);
+      box-shadow: var(--shadow-md); 
     }
     .profiles.card { background: var(--light-bg); }
 
     .card h2 {
       color: var(--primary-darker);
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.8rem; 
       font-weight: 500;
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       border-bottom: 1px solid var(--border-color);
-      padding-bottom: 0.75rem;
+      padding-bottom: 0.85rem;
     }
 
     .profile-list {
-      max-height: 300px; overflow-y: auto; margin-bottom: 1.5rem;
+      max-height: 320px; overflow-y: auto; margin-bottom: 1.8rem;
       padding-right: 0.5rem; 
     }
     .profile-list::-webkit-scrollbar { width: 8px; }
-    .profile-list::-webkit-scrollbar-thumb { background: #b0c4de; border-radius: var(--border-radius-sm); }
+    .profile-list::-webkit-scrollbar-thumb { background: #adb5bd; border-radius: var(--border-radius-sm); }
     .profile-list::-webkit-scrollbar-track { background: #e9ecef; }
 
     .profile-item {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0.9rem 1.2rem; border-radius: var(--border-radius-md);
+      padding: 1rem 1.25rem; border-radius: var(--border-radius-md);
       cursor: pointer; transition: all var(--transition-speed) ease-out;
-      margin-bottom: 0.75rem; border: 1px solid var(--border-color);
+      margin-bottom: 0.85rem; border: 1px solid var(--border-color);
       background-color: var(--lighter-bg);
     }
     .profile-item:hover {
       background-color: #e9f3ff;
       transform: translateY(-2px) scale(1.01);
-      box-shadow: var(--shadow-md);
+      box-shadow: 0 0.25rem 0.75rem rgba(0,0,0,0.07);
     }
     .profile-item.selected {
       background-color: var(--primary-color); color: var(--lighter-bg);
       border-color: var(--primary-darker);
-      box-shadow: 0 4px 10px rgba(0,123,255,0.3);
+      box-shadow: 0 0.25rem 0.75rem rgba(0,123,255,0.25);
       transform: translateY(0) scale(1);
     }
     .profile-item.selected .info .name, .profile-item.selected .info .gender-emoji { color: var(--lighter-bg); }
-    .profile-item.selected button.action-btn { color: #ffdde0; }
-    .profile-item.selected button.action-btn:hover { color: #ffbdc3; background-color: rgba(255,255,255,0.1); }
+    .profile-item.selected button.action-btn { color: #ffe0e3; }
+    .profile-item.selected button.action-btn:hover { color: #ffd0d5; background-color: rgba(255,255,255,0.1); }
 
-    .profile-item .info { display: flex; align-items: center; gap: 0.9rem; }
-    .profile-item .info .gender-emoji { font-size: 1.7rem; line-height: 1; }
-    .profile-item .info .name { font-weight: 500; font-size: 1.05rem; }
-    .profile-item .actions { display: flex; gap: 0.4rem; }
+    .profile-item .info { display: flex; align-items: center; gap: 1rem; }
+    .profile-item .info .gender-emoji { font-size: 1.8rem; line-height: 1; }
+    .profile-item .info .name { font-weight: 500; font-size: 1.1rem; }
+    .profile-item .actions { display: flex; gap: 0.5rem; }
     .profile-item button.action-btn {
-      background: transparent; border: none; font-size: 1.1rem; line-height: 1;
-      cursor: pointer; padding: 0.4rem 0.6rem; border-radius: var(--border-radius-sm);
+      background: transparent; border: none; font-size: 1.15rem; line-height: 1;
+      cursor: pointer; padding: 0.45rem 0.65rem; border-radius: var(--border-radius-sm);
       transition: color var(--transition-speed), background-color var(--transition-speed);
     }
     .profile-item button.edit-btn { color: var(--primary-color); }
@@ -131,9 +131,9 @@
     .profile-item button.delete-btn { color: var(--danger-color); }
     .profile-item button.delete-btn:hover { color: var(--danger-darker); background-color: rgba(220,53,69,0.08); }
 
-    .profiles form { display: grid; gap: 1rem; }
+    .profiles form { display: grid; gap: 1.1rem; }
     .profiles input, .profiles select {
-      width: 100%; padding: 0.9rem 1rem; border: 1px solid var(--border-color);
+      width: 100%; padding: 1rem 1.1rem; border: 1px solid var(--border-color);
       border-radius: var(--border-radius-md); font-size: 1rem; background-color: var(--lighter-bg);
       transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
     }
@@ -141,18 +141,20 @@
       border-color: var(--primary-color); box-shadow: 0 0 0 0.2rem var(--input-focus-color); outline: none;
     }
     .profiles button#profileSubmitBtn {
-      background: var(--primary-color); color: var(--lighter-bg); border: none; cursor: pointer;
-      font-weight: 500; padding: 0.9rem 1.5rem; font-size: 1rem; border-radius: var(--border-radius-md);
-      transition: background-color var(--transition-speed), transform var(--transition-speed), box-shadow var(--transition-speed);
+      margin-top: 0.5rem; 
     }
-    .profiles button#profileSubmitBtn:hover { background: var(--primary-darker); transform: translateY(-1px); box-shadow: var(--shadow-sm); }
-    .age-inputs { display: flex; gap: 0.75rem; } .age-inputs input { width: 100%; }
+    .age-inputs { display: flex; gap: 0.85rem; } .age-inputs input { width: 100%; }
 
     #selectedProfileInfo {
-      font-size: 1.1rem; background-color: #e6f2ff; 
-      padding: 0.9rem 1.2rem; border-radius: var(--border-radius-md);
+      font-size: 1.15rem; background-color: #e6f2ff; 
+      padding: 1rem 1.3rem; border-radius: var(--border-radius-md);
       border-left: 5px solid var(--primary-color);
+      margin-bottom: 1rem; 
     }
+     #calculateBtn { 
+        margin-top: 0.5rem; 
+    }
+
 
     .btn { 
         width: fit-content; padding: .9rem 1.6rem; color: #fff; border: none;
@@ -199,13 +201,22 @@
 
     .export-container { margin-top: 1.5rem; text-align: right; }
 
-    .goal-section { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color);}
-    .goal-section h4 { font-weight: 500; color: var(--primary-darker); margin-bottom: 0.75rem;}
-    .goal-display p { font-size: 1rem; margin-bottom: 0.4rem; }
-    .goal-log { display: flex; gap: 0.75rem; align-items: center; margin-top: 0.75rem;}
-    .goal-log input[type="number"] { width: 120px; padding: 0.6rem; font-size: 0.95rem; border-radius: var(--border-radius-sm); border: 1px solid var(--border-color);}
-    .goal-log button { padding: 0.6rem 1rem; font-size: 0.9rem; background-color: var(--success-color); color: white; }
-    .goal-log button:hover { background-color: var(--success-darker); }
+    #actionPlan ul { list-style-type: none; padding-left: 0; }
+    .action-plan-item {
+        display: flex; align-items: flex-start; margin-bottom: 1rem;
+        padding: 0.8rem 1rem; border-radius: var(--border-radius-sm);
+        background-color: var(--lighter-bg); border: 1px solid var(--border-color);
+        box-shadow: var(--shadow-sm);
+    }
+    .action-plan-item::before { 
+        margin-right: 0.75rem; font-size: 1.2em; line-height: 1.4; 
+    }
+    .action-plan-general::before { content: "ℹ️"; }
+    .action-plan-medical::before { content: "⚕️"; color: var(--danger-color); }
+    .action-plan-diet::before { content: "🥗"; color: var(--success-color); }
+    .action-plan-activity::before { content: "🏃"; color: var(--warning-color); }
+    .action-plan-lifestyle::before { content: "🌙"; color: var(--info-color); }
+
 
     .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.55); backdrop-filter: blur(3px); }
     .modal-content { background-color: #fff; margin: 5% auto; padding: 30px; border: none; width: 90%; max-width: 750px; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); animation: modalAppear 0.3s ease-out; max-height: 80vh; overflow-y: auto; }
@@ -217,80 +228,61 @@
     .modal p, .modal ul { margin-bottom: 1.2rem; line-height: 1.7; font-size: 1rem; }
     .modal ul { list-style-position: outside; padding-left: 1.5em; } .modal li { margin-bottom: 0.6rem; }
 
-    .quiz-container { margin-top: 1.5rem; padding-top:1rem; border-top: 1px solid #eee;}
-    .quiz-question { margin-bottom: 0.75rem; font-weight: 500;}
-    .quiz-options label { display: block; margin-bottom: 0.5rem; cursor: pointer; padding: 0.5rem; border-radius: 6px; transition: background-color 0.2s;}
-    .quiz-options label:hover { background-color: #e9ecef; }
-    .quiz-options input[type="radio"] { margin-right: 0.5rem; }
-    .quiz-feedback { margin-top: 0.5rem; font-weight: bold; }
-    .quiz-feedback.correct { color: #28a745; }
-    .quiz-feedback.incorrect { color: #dc3545; }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1 id="mainTitle">Check-Up IMC Infantil Completo</h1>
+    <h1 id="mainTitle">Calculadora de IMC e Análise de Saúde</h1>
     <div class="grid">
       <div class="profiles card">
-        <h2>Perfis de Criança</h2>
+        <h2>Perfis</h2>
         <div id="profilesContainer" class="profile-list"></div>
         <form id="profileForm">
-          <input id="nickname" placeholder="Nome da Criança" required/>
+          <input id="nickname" placeholder="Nome do Perfil" required/>
           <div class="age-inputs">
-            <input id="ageYears" type="number" min="1" max="18" placeholder="Idade (Anos)" required/>
-            <input id="ageMonths" type="number" min="0" max="11" placeholder="Meses (0-11)" required/>
+            <input id="ageYears" type="number" min="1" max="120" placeholder="Idade (Anos)" required/>
+            <input id="ageMonths" type="number" min="0" max="11" placeholder="Meses (0-11)" required title="Para crianças/adolescentes, ou deixe 0 para adultos"/>
           </div>
           <select id="genero" required>
-            <option value="" disabled selected>Género</option>
-            <option value="rapaz">Rapaz</option>
-            <option value="rapariga">Rapariga</option>
+            <option value="" disabled selected>Género Biológico</option>
+            <option value="Masculino">Masculino</option>
+            <option value="Feminino">Feminino</option>
           </select>
-          <input id="height" type="number" min="30" max="220" placeholder="Altura (cm)" required/>
-          <input id="weight" type="number" min="2" max="150" step="0.1" placeholder="Peso (kg)" required/>
+          <input id="height" type="number" min="30" max="250" placeholder="Altura (cm)" required/>
+          <input id="weight" type="number" min="2" max="300" step="0.1" placeholder="Peso (kg)" required/>
           <select id="activity" required>
-            <option value="" disabled selected>Nível de Atividade</option>
-            <option value="Sedentário">Sedentário</option>
-            <option value="Moderado">Moderado</option>
-            <option value="Ativo">Ativo</option>
+            <option value="" disabled selected>Nível de Atividade Física</option>
+            <option value="Sedentário">Sedentário (pouco/nenhum exercício)</option>
+            <option value="Moderado">Moderado (exercício leve 1-3x/semana)</option>
+            <option value="Ativo">Ativo (exercício moderado/intenso 3-5x/semana)</option>
+            <option value="Muito Ativo">Muito Ativo (exercício intenso 6-7x/semana)</option>
           </select>
           <button type="submit" id="profileSubmitBtn" class="btn btn-primary">Criar Perfil</button>
         </form>
       </div>
 
       <div class="calculator card">
-        <h2>Calculadora & Diagnóstico</h2>
+        <h2>Calculadora & Análise</h2>
         <p id="selectedProfileInfo"><strong>Perfil Selecionado:</strong> <span id="selectedProfileName">Nenhum</span></p>
-        <button id="calculateBtn" class="btn btn-success" disabled>Calcular IMC & Análise</button>
+        <button id="calculateBtn" class="btn btn-success" disabled>Calcular & Analisar</button>
 
         <div id="result" class="result-section">
-          <h3>Resultados do Check-Up</h3>
+          <h3>Resultados da Avaliação</h3>
           <p>Altura (usada): <strong id="profileHeight"></strong> cm</p>
           <p>Peso (usado): <strong id="profileWeight"></strong> kg</p>
           <p>IMC: <strong id="imcValue"></strong> kg/m²</p>
-          <p>Z-Score (OMS): <strong id="whoZScore"></strong></p>
-          <p>Percentil (OMS): <strong id="whoPercentile"></strong>º</p>
-          <p>Categoria (OMS): <strong id="whoCategory"></strong></p>
+          <p id="zScoreRow">Z-Score (OMS): <strong id="whoZScore"></strong></p>
+          <p id="percentileRow">Percentil (OMS): <strong id="whoPercentile"></strong>º</p>
+          <p>Categoria de IMC: <strong id="whoCategory"></strong></p>
           <p class="activity-feedback">Nível de Atividade: <strong id="profileActivityLevel"></strong> - <em id="activityRelevanceComment"></em></p>
-          <p><em>Valores Z-Score e Percentil baseados em padrões da OMS (simplificado para demonstração). Consulte um profissional de saúde.</em></p>
+          <p><em><span id="ageDisclaimer">Valores Z-Score e Percentil são para crianças/adolescentes (OMS simplificado).</span> Consulte um profissional de saúde.</em></p>
         </div>
 
-        <div id="goalTrackingSection" class="result-section goal-section">
-            <h3>Metas e Progresso</h3>
-            <div id="goalDisplay" class="goal-display">
-                <p>Meta Passos Diários: <strong id="stepsTarget">8000</strong> passos</p>
-                <p>Passos Hoje: <strong id="stepsToday">0</strong></p>
-            </div>
-            <div class="goal-log">
-                <label for="stepsInput" style="font-size:0.9rem; white-space:nowrap;">Registar passos de hoje:</label>
-                <input type="number" id="stepsInput" min="0" placeholder="Nº de passos">
-                <button id="logStepsBtn" class="btn btn-success" style="padding: 0.5rem 0.8rem; font-size:0.9rem;">Registar</button>
-            </div>
-        </div>
         <div class="result-section" id="chartSection">
             <h3>Gráficos de Avaliação</h3>
             <div class="chart-toggle-buttons">
-                <button id="showGrowthChartBtn" class="btn active-chart-btn">Curva de Crescimento (IMC)</button>
-                <button id="showStatusChartBtn" class="btn">Status Atual (IMC vs Ref.)</button>
+                <button id="showGrowthChartBtn" class="btn active-chart-btn">Evolução do IMC</button>
+                <button id="showStatusChartBtn" class="btn">Status Atual do IMC</button>
             </div>
             <div class="charts-container">
                 <canvas id="growthChartCanvas"></canvas>
@@ -300,10 +292,10 @@
         <div id="actionPlan" class="result-section">
           <h3>Plano de Ação Sugerido</h3>
           <ul id="planList"></ul>
-          <p style="font-size:.9em;color:#555;margin-top:0.5rem;"><em>Lembre-se: estas são sugestões gerais e baseadas em dados simplificados. Consulte sempre um pediatra ou nutricionista para aconselhamento personalizado.</em></p>
+          <p style="font-size:.9em;color:#555;margin-top:0.5rem;"><em>Lembre-se: estas são sugestões gerais e baseadas em dados simplificados. Consulte sempre um profissional de saúde para aconselhamento personalizado.</em></p>
         </div>
         
-        <button id="learnMoreBtn" class="btn btn-info">Aprender Mais sobre Saúde Infantil</button>
+        <button id="learnMoreBtn" class="btn btn-info">Aprender Mais sobre IMC e Saúde</button>
         <div class="export-container">
             <button id="exportBtn" class="btn btn-secondary" disabled>Exportar Relatório (PDF)</button>
         </div>
@@ -311,25 +303,58 @@
     </div>
   </div>
 
-  <div id="educationalModal" class="modal"> <div class="modal-content"> <span class="modal-close" id="modalCloseBtn">&times;</span> <h2>Aprender Mais sobre Saúde Infantil</h2>
-    <section id="edu-bmi"> <div class="quiz-container" style="margin-top: 1.5rem; padding-top:1rem; border-top: 1px solid #eee;"> <h4>Teste Rápido: O que aprendeu?</h4> <p class="quiz-question">1. Um Z-Score de IMC de +2.5 para uma criança de 8 anos geralmente indica:</p> <div class="quiz-options"> <label><input type="radio" name="q1_v2" value="a">Peso Normal</label> <label><input type="radio" name="q1_v2" value="b">Risco de Baixo Peso</label> <label><input type="radio" name="q1_v2" value="c">Risco de Obesidade</label> </div> <button id="submitQuizBtn_v2" class="btn btn-primary" style="margin-top:0.5rem; padding:0.5em 1em; font-size:0.9em;">Verificar</button> <div id="quizFeedback_v2" class="quiz-feedback"></div> </div> <p style="margin-top:1.5rem;"><em>Lembre-se: Estes são guias. Cada criança é diferente! Fale sempre com o pediatra para uma avaliação completa.</em></p> </section>
-    <section id="edu-nutrition"><h3>Dicas para uma Alimentação Saudável</h3><p>Comer bem ajuda as crianças a crescer fortes e saudáveis!</p><ul><li><strong>Muitas Cores no Prato:</strong> Ofereça frutas e vegetais variados todos os dias. São como super-heróis para o corpo!</li><li><strong>Energia para Brincar:</strong> Prefira pão, arroz e massa integrais. Dão energia que dura mais tempo.</li><li><strong>Músculos Fortes:</strong> Inclua peixe, frango, ovos, feijão ou lentilhas nas refeições.</li><li><strong>Água é Essencial:</strong> É a melhor bebida. Evite sumos embalados e refrigerantes, que costumam ter muito açúcar.</li><li><strong>Guloseimas:</strong> São boas, mas só de vez em quando e em pequena quantidade.</li></ul><p><em>Comer em família, num ambiente calmo e divertido, ajuda a criar bons hábitos!</em></p></section>
-    <section id="edu-activity"><h3>Brincar e Mexer Faz Crescer Saudável!</h3><p>A atividade física é super importante! Ajuda a ter ossos e músculos fortes, um coração saudável, a dormir melhor e até a ficar mais bem-disposto.</p><p><strong>Quanto Tempo?</strong> Crianças e adolescentes (5-17 anos) devem fazer, em média, <strong>pelo menos 1 hora</strong> de atividade física variada e divertida por dia.</p><h3>Ideias para Mexer o Esqueleto:</h3><p><strong>Pequenos Exploradores (1-3 Anos):</strong></p><ul><li>Gatinhar, andar, correr em segurança. Explorar o mundo!</li><li>Brincar com bolas, empurrar brinquedos.</li></ul><p><strong>Aventureiros (4-6 Anos):</strong></p><ul><li>Correr, saltar, trepar nos parques. Ser um super-herói!</li><li>Andar de triciclo, bicicleta com rodinhas, trotinete.</li></ul><p><strong>Campeões em Crescimento (7-10 Anos):</strong></p><ul><li>Jogar à bola, à apanhada, ou outros jogos com amigos.</li><li>Andar de bicicleta, patins. Saltar à corda. Dançar!</li></ul><p><strong>Jovens Atletas (11-18 Anos):</strong></p><ul><li>Praticar um desporto que gostem (futebol, dança, natação, artes marciais).</li><li>Fazer caminhadas, corridas leves. Andar de bicicleta.</li></ul><p><em>O mais importante é que seja divertido! Menos tempo em ecrãs e mais tempo a brincar ao ar livre é uma ótima combinação.</em></p></section>
-  </div> </div>
+  <div id="educationalModal" class="modal">
+    <div class="modal-content">
+      <span class="modal-close" id="modalCloseBtn">&times;</span>
+      <h2>Aprender Mais sobre IMC e Saúde</h2>
+      <section id="edu-bmi"> 
+        <h3>Compreender o IMC</h3> 
+        <p>O Índice de Massa Corporal (IMC) é uma ferramenta que usa a sua altura e peso para ajudar a perceber se o seu peso está dentro de uma faixa considerada saudável. É um ponto de partida útil, mas não conta toda a história sobre a sua saúde, pois não distingue entre músculo e gordura.</p>
+        
+        <h4>Para Crianças e Adolescentes (até 19 anos)</h4>
+        <p>Nas crianças e adolescentes, o IMC não é visto como um número isolado. Em vez disso, compara-se o IMC da criança com o de outras da mesma idade e sexo biológico usando <strong>Z-Scores</strong> (ou desvios padrão) e <strong>percentis</strong>. Isto acontece porque o corpo das crianças está sempre a mudar e a crescer.</p>
+        <ul>
+            <li><strong>Z-Score:</strong> Indica quão longe o IMC da criança está da média (Z-Score 0) para a sua idade e sexo.
+                <ul>
+                    <li>Um Z-Score perto de 0 (correspondendo ao percentil 50º) é geralmente considerado dentro da média.</li>
+                    <li>Valores positivos altos (ex: > +1 ou > +2) podem indicar risco de excesso de peso ou obesidade.</li>
+                    <li>Valores negativos baixos (ex: < -2) podem indicar risco de baixo peso.</li>
+                </ul>
+            </li>
+            <li><strong>Percentil:</strong> Mostra a posição do IMC da criança em relação a 100 crianças da mesma idade e sexo. Se uma criança está no percentil 60, significa que 60% das crianças têm um IMC inferior ao dela.</li>
+            <li>As curvas de crescimento da OMS (Organização Mundial da Saúde) que vê no gráfico de evolução ajudam a visualizar esta comparação. Para adultos, estas curvas de referência não são usadas; em vez disso, usam-se as categorias de IMC fixas.</li>
+        </ul>
+        
+        <h4>Para Adultos (20 anos ou mais)</h4>
+        <p>Nos adultos, o IMC é interpretado usando categorias fixas, pois o crescimento em altura já terminou. Estas categorias dão uma ideia geral do risco para a saúde associado ao peso:</p>
+        <ul>
+            <li><strong>Baixo Peso:</strong> IMC < 18.5</li>
+            <li><strong>Peso Normal:</strong> IMC 18.5 – 24.9</li>
+            <li><strong>Excesso de Peso (Sobrepeso):</strong> IMC 25 – 29.9</li>
+            <li><strong>Obesidade Grau I:</strong> IMC 30 – 34.9</li>
+            <li><strong>Obesidade Grau II:</strong> IMC 35 – 39.9</li>
+            <li><strong>Obesidade Grau III (Mórbida):</strong> IMC ≥ 40</li>
+        </ul>
+        <p><strong>Importante:</strong> O IMC é apenas um indicador. Fatores como a massa muscular, a estrutura óssea e a distribuição de gordura não são tidos em conta. Por exemplo, um atleta pode ter um IMC alto devido à massa muscular e não por excesso de gordura. Por isso, para uma avaliação completa da sua saúde e do seu peso, é fundamental consultar um médico ou nutricionista.</p> 
+      </section>
+      <section id="edu-nutrition"><h3>Dicas para uma Alimentação Saudável (Todas as Idades)</h3><p>Uma alimentação equilibrada é fundamental para a saúde e bem-estar em todas as fases da vida.</p><ul><li><strong>Priorize Alimentos Naturais:</strong> Baseie a sua alimentação em frutas, vegetais, leguminosas, cereais integrais, proteínas magras (peixe, aves, ovos, tofu) e gorduras saudáveis (azeite, abacate, frutos secos).</li><li><strong>Modere os Processados:</strong> Reduza o consumo de alimentos ultraprocessados, ricos em açúcares adicionados, sal e gorduras não saudáveis.</li><li><strong>Hidrate-se:</strong> Beba água regularmente ao longo do dia.</li><li><strong>Controle as Porções:</strong> Esteja atento ao tamanho das porções para evitar excessos.</li><li><strong>Cozinhe Mais em Casa:</strong> Preparar as suas refeições dá-lhe controlo sobre os ingredientes e a forma de cozinhar.</li></ul><p><em>Para orientações específicas, especialmente se tiver condições de saúde, consulte um nutricionista.</em></p></section>
+      <section id="edu-activity"><h3>A Importância da Atividade Física (Todas as Idades)</h3><p>Ser fisicamente ativo traz inúmeros benefícios para a saúde física e mental.</p><p><strong>Recomendações Gerais (OMS):</strong></p><ul><li><strong>Crianças e Adolescentes (5-17 anos):</strong> Pelo menos 60 minutos por dia de atividade física de intensidade moderada a vigorosa.</li><li><strong>Adultos (18-64 anos):</strong> Pelo menos 150-300 minutos de atividade física aeróbica de intensidade moderada, ou 75-150 minutos de atividade vigorosa por semana, mais atividades de fortalecimento muscular 2x/semana.</li><li><strong>Idosos (65+ anos):</strong> Semelhante aos adultos, com ênfase em atividades que melhorem o equilíbrio e previnam quedas.</li></ul><p>Encontre atividades que lhe dêem prazer para que seja mais fácil manter a regularidade!</p></section>
+    </div>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script>
   document.addEventListener('DOMContentLoaded', () => {
-    console.log("DOM fully loaded and parsed. Initializing app (v11_fixed)...");
+    console.log("DOM fully loaded. Initializing app (healthAnalyzerApp_v2_refined)...");
 
     const $ = (id, context = document) => {
         const el = context.getElementById(id);
         if (!el && id) console.warn(`Element with ID '${id}' not found in context:`, context.nodeName);
         return el;
     };
-    const setText = (id, text) => { const el = $(id); if (el) el.textContent = text; else console.warn(`setText: Element '${id}' not found for text: "${text}"`); };
+    const setText = (id, text) => { const el = $(id); if (el) el.textContent = String(text === null || text === undefined ? '' : text); else console.warn(`setText: Element '${id}' not found for text: "${text}"`); };
     const setHTML = (id, html) => { const el = $(id); if (el) el.innerHTML = html; else console.warn(`setHTML: Element '${id}' not found for HTML.`); };
 
     const ui = {
@@ -353,12 +378,12 @@
         whoCategory: $('whoCategory'), profileActivityLevel: $('profileActivityLevel'),
         activityRelevanceComment: $('activityRelevanceComment'),
         resultSection: $('result'),
-        goalTrackingSection: $('goalTrackingSection'), stepsTarget: $('stepsTarget'),
-        stepsToday: $('stepsToday'), stepsInput: $('stepsInput'), logStepsBtn: $('logStepsBtn'),
         chartSection: $('chartSection'),
         actionPlanSection: $('actionPlan'), planList: $('planList'),
         mainTitle: $('mainTitle'),
-        submitQuizBtnV2: $('submitQuizBtn_v2'), quizFeedbackV2: $('quizFeedback_v2'),
+        ageDisclaimer: $('ageDisclaimer'), 
+        zScoreRow: $('zScoreRow'), 
+        percentileRow: $('percentileRow'),
     };
 
     const growthChartCtx = ui.growthChartCanvasEl ? ui.growthChartCanvasEl.getContext('2d') : null;
@@ -368,25 +393,61 @@
     if (!currentStatusChartCtx) console.error("Current status chart canvas context (currentStatusChartCtx) is null!");
 
 
-    let profiles = JSON.parse(localStorage.getItem('childProfilesIMC_v11_fixed') || '[]');
+    let profiles = JSON.parse(localStorage.getItem('healthAnalyzerApp_v2_refined') || '[]');
     let selectedProfileIndex = -1;
     let isEditingProfile = false;
     let growthChartInstance;
     let currentStatusChartInstance;
-
-    const DEFAULT_GOAL = { goalId: 'dailySteps', description: 'Passos Diários', target: 8000, unit: 'passos', progress: [] };
     
     if (typeof Chart !== 'undefined') { Chart.defaults.font.family = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"; }
     else { console.error("Chart.js library not loaded!"); if(ui.showGrowthChartBtn) ui.showGrowthChartBtn.disabled = true; if(ui.showStatusChartBtn) ui.showStatusChartBtn.disabled = true; }
 
     const whoLMS_BMI = { rapaz: {60:[-1.363,15.304,0.0772],72:[-1.427,15.579,0.0797],84:[-1.487,15.969,0.0835],96:[-1.523,16.452,0.0883],108:[-1.517,17.004,0.0939],120:[-1.458,17.614,0.1001],132:[-1.342,18.282,0.1069],144:[-1.172,19.012,0.1141],156:[-0.958,19.808,0.1216],168:[-0.718,20.664,0.1291],180:[-0.474,21.560,0.1363],192:[-0.245,22.471,0.1429],204:[-0.052,23.362,0.1485],216:[0.106,24.196,0.1529],228:[0.238,24.948,0.1561]},rapariga:{60:[-1.592,15.048,0.0792],72:[-1.684,15.297,0.0832],84:[-1.769,15.696,0.0888],96:[-1.820,16.234,0.0958],108:[-1.799,16.900,0.1039],120:[-1.698,17.682,0.1128],132:[-1.521,18.565,0.1221],144:[-1.287,19.517,0.1313],156:[-1.021,20.493,0.1399],168:[-0.750,21.444,0.1473],180:[-0.501,22.328,0.1532],192:[-0.292,23.114,0.1574],204:[-0.136,23.781,0.1601],216:[-0.031,24.327,0.1615],228:[0.031,24.755,0.1618]}};
-    function getLMSForAge(sex, totalMonths) { const sexData=whoLMS_BMI[sex];if(!sexData)return null;const availableMonths=Object.keys(sexData).map(Number).sort((a,b)=>a-b);let closestMonth=availableMonths[0];for(const month of availableMonths){if(month<=totalMonths){closestMonth=month;}else{break;}} if(totalMonths>228&&(closestMonth<228))closestMonth=228;if(totalMonths<60&&(closestMonth>60||availableMonths.includes(60)))closestMonth=60;return sexData[closestMonth]||null;}
+    
+    function getLMSForAge(sexInput, totalMonths) {
+        const sexKey = sexInput === "Masculino" ? "rapaz" : (sexInput === "Feminino" ? "rapariga" : null);
+        if (!sexKey) { console.error("Invalid sex input for LMS lookup:", sexInput); return null; }
+        const sexData = whoLMS_BMI[sexKey];
+        if (!sexData) return null;
+        const availableMonths = Object.keys(sexData).map(Number).sort((a, b) => a - b);
+        let closestMonth = availableMonths[0];
+        for (const month of availableMonths) { if (month <= totalMonths) { closestMonth = month; } else { break; } }
+        if (totalMonths > 228 && (closestMonth < 228)) closestMonth = 228; 
+        if (totalMonths < 60 && (closestMonth > 60 || availableMonths.includes(60))) closestMonth = 60; 
+        return sexData[closestMonth] || null;
+    }
     function calculateZScore(bmi, totalMonths, sex) { const lms=getLMSForAge(sex,totalMonths);if(!lms)return null;const[L,M,S]=lms;let z;if(L!==0){z=(Math.pow(bmi/M,L)-1)/(L*S);}else{z=Math.log(bmi/M)/S;} return z;}
     function zScoreToPercentile(z) { if(z===null||isNaN(z))return null;const p=0.2316419,b1=0.31938153,b2=-0.356563782,b3=1.781477937,b4=-1.821255978,b5=1.330274429;const t=1/(1+p*Math.abs(z));const pdf=(1/Math.sqrt(2*Math.PI))*Math.exp(-0.5*z*z);let cdf=1-pdf*(b1*t+b2*Math.pow(t,2)+b3*Math.pow(t,3)+b4*Math.pow(t,4)+b5*Math.pow(t,5));if(z<0)cdf=1-cdf;return cdf*100;}
-    function getWHOCategory(zScore, totalMonths) { if(zScore===null||isNaN(zScore))return"N/A";const ageYears=totalMonths/12;if(ageYears>=1){if(zScore>2)return"Risco de Obesidade";if(zScore>1)return"Risco de Excesso de Peso";if(zScore<-2){return zScore<-3?"Risco de Magreza Acentuada":"Risco de Baixo Peso (Magreza)";}return"Peso Normal";}return"N/A (idade < 1 ano não coberta)";}
+    
+    function getBMICategory(bmi, ageYears) { // For Adults
+        if (ageYears >= 20) { 
+            if (bmi < 18.5) return "Baixo Peso";
+            if (bmi < 25) return "Peso Normal";
+            if (bmi < 30) return "Excesso de Peso (Sobrepeso)";
+            if (bmi < 35) return "Obesidade Grau I";
+            if (bmi < 40) return "Obesidade Grau II";
+            return "Obesidade Grau III (Mórbida)";
+        } else if (ageYears >= 1) { 
+            return "Avaliação por Z-Score (OMS)"; 
+        }
+        return "N/A (idade inválida)";
+    }
+
+    function getWHOCategoryForChild(zScore, totalMonths) { 
+        if(zScore===null||isNaN(zScore))return"N/A";
+        const ageYears = totalMonths / 12;
+        if(ageYears >= 1 && ageYears < 20){ 
+            if(zScore > 2)return"Risco de Obesidade";
+            if(zScore > 1)return"Risco de Excesso de Peso";
+            if(zScore < -2){return zScore < -3 ? "Risco de Magreza Acentuada" : "Risco de Baixo Peso (Magreza)";}
+            return"Peso Normal";
+        }
+        return "N/A (Z-Score não aplicável a esta idade)";
+    }
+    
     function calculateBMIFromZScore(zValue, totalMonths, sex) { const lms=getLMSForAge(sex,totalMonths);if(!lms)return null;const[L,M,S]=lms;if(L!==0){return M*Math.pow((L*S*zValue+1),(1/L));}else{return M*Math.exp(S*zValue);}}
     
-    function saveProfiles() { localStorage.setItem('childProfilesIMC_v11_fixed', JSON.stringify(profiles)); }
+    function saveProfiles() { localStorage.setItem('healthAnalyzerApp_v2_refined', JSON.stringify(profiles)); }
 
     function populateFormForEdit(profile) {
         if(ui.nicknameInput) ui.nicknameInput.value = profile.nickname; 
@@ -402,13 +463,13 @@
     function resetProfileForm() { 
         if (ui.profileForm) ui.profileForm.reset();
         if (ui.profileSubmitBtn) ui.profileSubmitBtn.textContent = "Criar Perfil";
-        setText('mainTitle', "Check-Up IMC Infantil Completo");
+        setText('mainTitle', "Calculadora de IMC e Análise de Saúde");
         isEditingProfile = false;
     }
     function renderProfilesList() {
         if (!ui.profilesContainer) { console.error("profilesContainer not found in renderProfilesList"); return; }
         ui.profilesContainer.innerHTML=''; if(profiles.length===0){setHTML('profilesContainer','<p style="text-align:center;color:#777;">Nenhum perfil.</p>');return;}
-        profiles.forEach((profile,index)=>{const item=document.createElement('div');item.className='profile-item';if(index===selectedProfileIndex&&!isEditingProfile){item.classList.add('selected');}item.onclick=()=>{if(isEditingProfile){if(selectedProfileIndex!==index&&!confirm("Descartar alterações não guardadas?"))return;resetProfileForm();renderProfilesList();updateSelectedProfileDisplay();selectedProfileIndex=-1;}selectedProfileIndex=index;renderProfilesList();updateSelectedProfileDisplay();clearResultsAndCharts();if(profiles[selectedProfileIndex])displayGoalProgress(profiles[selectedProfileIndex]);};const infoDiv=document.createElement('div');infoDiv.className='info';const genderEmojiSpan=document.createElement('span');genderEmojiSpan.className='gender-emoji';genderEmojiSpan.textContent=profile.genero==='rapaz'?'👦':'👧';const nameSpan=document.createElement('span');nameSpan.className='name';nameSpan.textContent=profile.nickname;infoDiv.append(genderEmojiSpan,nameSpan);const actionsDiv=document.createElement('div');actionsDiv.className='actions';const editBtn=document.createElement('button');editBtn.innerHTML='✏️';editBtn.className='action-btn edit-btn';editBtn.title='Editar';editBtn.onclick=(e)=>{e.stopPropagation();clearResultsAndCharts();selectedProfileIndex=index;populateFormForEdit(profiles[index]);renderProfilesList();updateSelectedProfileDisplay();};const deleteBtn=document.createElement('button');deleteBtn.innerHTML='&times;';deleteBtn.className='action-btn delete-btn';deleteBtn.title='Remover';deleteBtn.onclick=e=>{e.stopPropagation();if(confirm(`Remover ${profile.nickname}?`)){if(isEditingProfile&&selectedProfileIndex===index){resetProfileForm();}profiles.splice(index,1);if(selectedProfileIndex===index){selectedProfileIndex=-1;clearResultsAndCharts();}else if(selectedProfileIndex>index){selectedProfileIndex--;}saveProfiles();renderProfilesList();updateSelectedProfileDisplay();}};actionsDiv.append(editBtn,deleteBtn);item.append(infoDiv,actionsDiv);ui.profilesContainer.appendChild(item);});
+        profiles.forEach((profile,index)=>{const item=document.createElement('div');item.className='profile-item';if(index===selectedProfileIndex&&!isEditingProfile){item.classList.add('selected');}item.onclick=()=>{if(isEditingProfile){if(selectedProfileIndex!==index&&!confirm("Descartar alterações não guardadas?"))return;resetProfileForm();renderProfilesList();updateSelectedProfileDisplay();selectedProfileIndex=-1;}selectedProfileIndex=index;renderProfilesList();updateSelectedProfileDisplay();clearResultsAndCharts();/*Goal display call removed*/};const infoDiv=document.createElement('div');infoDiv.className='info';const genderEmojiSpan=document.createElement('span');genderEmojiSpan.className='gender-emoji';genderEmojiSpan.textContent=profile.genero==='Masculino'?'👦':'👧';const nameSpan=document.createElement('span');nameSpan.className='name';nameSpan.textContent=profile.nickname;infoDiv.append(genderEmojiSpan,nameSpan);const actionsDiv=document.createElement('div');actionsDiv.className='actions';const editBtn=document.createElement('button');editBtn.innerHTML='✏️';editBtn.className='action-btn edit-btn';editBtn.title='Editar';editBtn.onclick=(e)=>{e.stopPropagation();clearResultsAndCharts();selectedProfileIndex=index;populateFormForEdit(profiles[index]);renderProfilesList();updateSelectedProfileDisplay();};const deleteBtn=document.createElement('button');deleteBtn.innerHTML='&times;';deleteBtn.className='action-btn delete-btn';deleteBtn.title='Remover';deleteBtn.onclick=e=>{e.stopPropagation();if(confirm(`Remover ${profile.nickname}?`)){if(isEditingProfile&&selectedProfileIndex===index){resetProfileForm();}profiles.splice(index,1);if(selectedProfileIndex===index){selectedProfileIndex=-1;clearResultsAndCharts();}else if(selectedProfileIndex>index){selectedProfileIndex--;}saveProfiles();renderProfilesList();updateSelectedProfileDisplay();}};actionsDiv.append(editBtn,deleteBtn);item.append(infoDiv,actionsDiv);ui.profilesContainer.appendChild(item);});
     }
     function updateSelectedProfileDisplay() {
         const profileSelectedForAnalysis=selectedProfileIndex>=0&&!isEditingProfile;
@@ -416,15 +477,15 @@
         else if(profileSelectedForAnalysis&&profiles[selectedProfileIndex]){setText('selectedProfileName',profiles[selectedProfileIndex].nickname);}
         else{setText('selectedProfileName','Nenhum');}
         if(ui.calculateBtn) ui.calculateBtn.disabled=!profileSelectedForAnalysis;
-        if(ui.goalTrackingSection)ui.goalTrackingSection.style.display=profileSelectedForAnalysis?'block':'none';
+        // Goal section display logic REMOVED
         if(!profileSelectedForAnalysis){if(ui.exportBtn)ui.exportBtn.disabled=true;if(!isEditingProfile){clearResultsAndCharts();}}
     }
     function clearResultsAndCharts() {
-        ['result','actionPlan','chartSection','goalTrackingSection'].forEach(id=>{const el=$(id);if(el)el.classList.remove('visible');});
+        ['result','actionPlan','chartSection'/*,'goalTrackingSection' REMOVED*/].forEach(id=>{const el=$(id);if(el)el.classList.remove('visible');});
         if(growthChartInstance){growthChartInstance.destroy();growthChartInstance=null;}
         if(currentStatusChartInstance){currentStatusChartInstance.destroy();currentStatusChartInstance=null;}
         if(ui.exportBtn) ui.exportBtn.disabled = true;
-        setText('stepsToday', '0'); if (ui.stepsInput) ui.stepsInput.value = '';
+        // Goal display reset REMOVED
         if(ui.growthChartCanvasEl) ui.growthChartCanvasEl.style.display='block'; if(ui.currentStatusChartCanvasEl) ui.currentStatusChartCanvasEl.style.display='none';
         if(ui.showGrowthChartBtn) ui.showGrowthChartBtn.classList.add('active-chart-btn'); if(ui.showStatusChartBtn) ui.showStatusChartBtn.classList.remove('active-chart-btn');
     }
@@ -446,6 +507,7 @@
                     ageYears: ageYears, ageMonthsSub: ageMonthsSub, totalMonthsAtCreation: totalMonths,
                     genero: ui.generoSelect.value, height: parseFloat(ui.heightInput.value),
                     weight: parseFloat(ui.weightInput.value), activity: ui.activitySelect.value,
+                    // goals property removed
                 };
 
                 if (!profileData.nickname || !profileData.genero || isNaN(profileData.height) || isNaN(profileData.weight) || !profileData.activity) {
@@ -455,7 +517,7 @@
                 if (isEditingProfile && selectedProfileIndex >= 0 && profiles[selectedProfileIndex]) {
                     console.log("Updating profile:", profiles[selectedProfileIndex].nickname);
                     profileData.imcHistory = profiles[selectedProfileIndex].imcHistory || [];
-                    profileData.goals = profiles[selectedProfileIndex].goals || [JSON.parse(JSON.stringify(DEFAULT_GOAL))];
+                    // profileData.goals removed
                     profiles[selectedProfileIndex] = profileData;
                     
                     saveProfiles(); alert("Perfil atualizado com sucesso!");
@@ -466,7 +528,7 @@
                 } else {
                     console.log("Creating new profile:", profileData.nickname);
                     profileData.imcHistory = [];
-                    profileData.goals = [JSON.parse(JSON.stringify(DEFAULT_GOAL))];
+                    // profileData.goals removed
                     profiles.push(profileData);
                     selectedProfileIndex = profiles.length - 1;
                     
@@ -481,17 +543,9 @@
         };
     } else { console.error("Profile form (ui.profileForm) not found! Cannot attach onsubmit listener."); }
     
-    function displayGoalProgress(profile) {
-        if (!ui.goalTrackingSection) return;
-        if(!profile||!profile.goals||!profile.goals.length){if(profile&&(!profile.goals||!profile.goals.length)){profile.goals=[JSON.parse(JSON.stringify(DEFAULT_GOAL))];saveProfiles();}else{ui.goalTrackingSection.classList.remove('visible');return;}}
-        const stepsGoal=profile.goals.find(g=>g.goalId==='dailySteps');if(!stepsGoal){profile.goals.push(JSON.parse(JSON.stringify(DEFAULT_GOAL)));saveProfiles();displayGoalProgress(profile);return;}
-        setText('stepsTarget', stepsGoal.target); const todayStr=new Date().toISOString().split('T')[0];
-        const todayProgress=stepsGoal.progress.find(p=>p.date===todayStr);
-        setText('stepsToday', todayProgress ? todayProgress.value : '0');
-        if (ui.stepsInput) ui.stepsInput.value = ''; ui.goalTrackingSection.classList.add('visible');
-    }
-    if(ui.logStepsBtn) ui.logStepsBtn.onclick = () => { if(selectedProfileIndex<0||isEditingProfile)return;const profile=profiles[selectedProfileIndex];const stepsValue=parseInt(ui.stepsInput.value);if(isNaN(stepsValue)||stepsValue<0){alert("Insira um nº válido.");return;}const stepsGoal=profile.goals.find(g=>g.goalId==='dailySteps');if(!stepsGoal){alert("Meta não encontrada.");return;}const todayStr=new Date().toISOString().split('T')[0];let todayProgress=stepsGoal.progress.find(p=>p.date===todayStr);if(todayProgress){todayProgress.value=stepsValue;}else{stepsGoal.progress.push({date:todayStr,value:stepsValue});}saveProfiles();displayGoalProgress(profile);if(ui.stepsInput)ui.stepsInput.value='';alert("Passos registados!");};
-
+    // displayGoalProgress function REMOVED
+    // logStepsBtn onclick REMOVED
+    
     const calculateIMC = (weight, height) => weight / ((height / 100) ** 2);
 
     function displayProfileResults() {
@@ -504,29 +558,67 @@
 
         setText('profileHeight', profile.height); setText('profileWeight', profile.weight);
         const imc = parseFloat(calculateIMC(profile.weight, profile.height).toFixed(2));
-        let currentTotalMonths = (profile.ageYears * 12) + profile.ageMonthsSub;
-        const zScore = calculateZScore(imc, currentTotalMonths, profile.genero);
-        const percentile = zScoreToPercentile(zScore); const whoCategory = getWHOCategory(zScore, currentTotalMonths);
+        const ageYears = profile.ageYears;
+        let currentTotalMonths = (ageYears * 12) + profile.ageMonthsSub;
+        
+        let zScore = null, percentile = null, category = "";
+
+        if (ageYears < 20 && ageYears >= 1) { 
+            zScore = calculateZScore(imc, currentTotalMonths, profile.genero);
+            percentile = zScoreToPercentile(zScore);
+            category = getWHOCategoryForChild(zScore, currentTotalMonths);
+            if(ui.zScoreRow) ui.zScoreRow.style.display = 'block';
+            if(ui.percentileRow) ui.percentileRow.style.display = 'block';
+            if(ui.ageDisclaimer) ui.ageDisclaimer.textContent = "Valores Z-Score e Percentil são para crianças/adolescentes (OMS simplificado).";
+        } else if (ageYears >= 20) { 
+            category = getBMICategory(imc, ageYears);
+            if(ui.zScoreRow) ui.zScoreRow.style.display = 'none';
+            if(ui.percentileRow) ui.percentileRow.style.display = 'none';
+            if(ui.ageDisclaimer) ui.ageDisclaimer.textContent = "Categorias de IMC para adultos.";
+        } else { 
+            category = "N/A (cálculo para idade >= 1 ano)";
+            if(ui.zScoreRow) ui.zScoreRow.style.display = 'none';
+            if(ui.percentileRow) ui.percentileRow.style.display = 'none';
+            if(ui.ageDisclaimer) ui.ageDisclaimer.textContent = "Cálculo de IMC para idade >= 1 ano.";
+        }
+
         setText('profileActivityLevel', profile.activity);
         let activityComment = "";
-        switch(profile.activity) { case "Sedentário": activityComment = "Importante aumentar para melhor saúde."; break; case "Moderado": activityComment = "Bom! Considerar aumentar se possível."; break; case "Ativo": activityComment = "Excelente! Manter este nível é ótimo."; break; default: activityComment = "Nível de atividade não especificado."; }
+        switch(profile.activity) { case "Sedentário": activityComment = "Importante aumentar para melhor saúde."; break; case "Moderado": activityComment = "Bom! Considerar aumentar se possível."; break; case "Ativo": activityComment = "Excelente! Manter este nível é ótimo."; break; case "Muito Ativo": activityComment = "Fantástico! Continue assim!"; break; default: activityComment = "Nível de atividade não especificado."; }
         setText('activityRelevanceComment', activityComment);
+        
         const today = new Date(); const historyEntry = { date: today, totalMonths: currentTotalMonths, bmi: imc, zScore: zScore, height: profile.height, weight: profile.weight };
         if (!profile.imcHistory) profile.imcHistory = [];
         const existingEntryIndex = profile.imcHistory.findIndex(entry => new Date(entry.date).toLocaleDateString('pt-PT') === today.toLocaleDateString('pt-PT'));
         if (existingEntryIndex > -1) { profile.imcHistory[existingEntryIndex] = historyEntry; } else { profile.imcHistory.push(historyEntry); }
         profile.imcHistory.sort((a,b) => new Date(a.date) - new Date(b.date)); 
         
-        setText('imcValue', imc); setText('whoZScore', zScore !== null ? zScore.toFixed(2) : "N/A");
-        setText('whoPercentile', percentile !== null ? percentile.toFixed(1) : "N/A"); setText('whoCategory', whoCategory); 
+        setText('imcValue', imc); 
+        setText('whoZScore', (ageYears < 20 && zScore !== null) ? zScore.toFixed(2) : "N/A (Adulto)");
+        setText('whoPercentile', (ageYears < 20 && percentile !== null) ? percentile.toFixed(1) : "N/A (Adulto)"); 
+        setText('whoCategory', category); 
         if (ui.resultSection) ui.resultSection.classList.add('visible');
-        renderSimplifiedGrowthChart(profile); renderCurrentStatusChart(profile, imc, currentTotalMonths);
+        
+        renderSimplifiedGrowthChart(profile, ageYears); 
+        renderCurrentStatusChart(profile, imc, currentTotalMonths, ageYears);
+        
         if (ui.chartSection) ui.chartSection.classList.add('visible'); 
         if(ui.growthChartCanvasEl) ui.growthChartCanvasEl.style.display = 'block'; if(ui.currentStatusChartCanvasEl) ui.currentStatusChartCanvasEl.style.display = 'none';
         if(ui.showGrowthChartBtn) ui.showGrowthChartBtn.classList.add('active-chart-btn'); if(ui.showStatusChartBtn) ui.showStatusChartBtn.classList.remove('active-chart-btn');
-        if (ui.planList) { ui.planList.innerHTML = ''; const planItems = getEnhancedActionPlan(whoCategory, profile.ageYears, profile.activity, profile.genero); planItems.forEach(itemText => { const li = document.createElement('li'); li.textContent = itemText; ui.planList.appendChild(li); });}
+        
+        if (ui.planList) { 
+            ui.planList.innerHTML = ''; 
+            const planItems = getEnhancedActionPlan(category, ageYears, profile.activity, profile.genero); 
+            planItems.forEach(item => { 
+                const li = document.createElement('li');
+                li.className = `action-plan-item action-plan-${item.type || 'general'}`;
+                li.textContent = item.text; 
+                li.setAttribute('data-icon', item.type === 'medical' ? '⚕️' : item.type === 'diet' ? '🥗' : item.type === 'activity' ? '🏃' : item.type === 'lifestyle' ? '🌙' : 'ℹ️'); // For PDF
+                ui.planList.appendChild(li); 
+            });
+        }
         if (ui.actionPlanSection) ui.actionPlanSection.classList.add('visible'); 
-        if(profile) displayGoalProgress(profile); 
+        // displayGoalProgress REMOVED
         if(ui.exportBtn) ui.exportBtn.disabled = false;
         console.log("Results displayed successfully for:", profile.nickname);
       } catch (error) { console.error("Erro fatal em displayProfileResults:", error); alert("Ocorreu um erro crítico ao calcular ou exibir os resultados: " + error.message + ". Verifique a consola."); }
@@ -547,86 +639,114 @@
         }
     };
 
-    function getEnhancedActionPlan(category, ageYears, activityLevel, sex) { const plans=[];plans.push("Lembre-se que estas são sugestões gerais. Aconselhamento individualizado de um pediatra ou nutricionista é fundamental.");if(category==="Risco de Obesidade"||category==="Risco de Excesso de Peso"){plans.push("Consultar um profissional de saúde para avaliação detalhada e plano de acompanhamento específico.");plans.push("Foco em escolhas alimentares saudáveis: aumentar consumo de vegetais, frutas e fibras; reduzir alimentos processados, açucarados e gorduras saturadas.");plans.push("Incentivar atividade física diária. Para "+category.toLowerCase()+", aumentar gradualmente o tempo e a intensidade.");if(activityLevel==="Sedentário"){plans.push("Começar com pequenas metas de atividade, como 30 minutos de brincadeiras ativas ou caminhadas ligeiras.");}plans.push("Reduzir tempo de ecrã (TV, tablet, telemóvel) e promover atividades ativas em família.");}else if(category==="Risco de Baixo Peso (Magreza)"||category==="Risco de Magreza Acentuada"){plans.push("Consultar um profissional de saúde para investigar possíveis causas e assegurar um aporte calórico e nutricional adequado.");plans.push("Considerar refeições mais frequentes e densas em nutrientes e calorias saudáveis.");plans.push("Não forçar a alimentação; criar um ambiente positivo às refeições.");}else{plans.push("Parabéns por manter um peso saudável! Continuar a promover hábitos de alimentação equilibrada e atividade física regular.");plans.push("Monitorizar o crescimento e desenvolvimento regularmente com o seu profissional de saúde.");}if(activityLevel==="Sedentário"&&category==="Peso Normal"){plans.push("Apesar do peso normal, é importante aumentar o nível de atividade física para benefícios de saúde gerais e prevenção futura.");}else if(activityLevel!=="Sedentário"){plans.push(`Continuar com o nível de atividade ${activityLevel.toLowerCase()} é ótimo! Varie as atividades para manter o interesse.`);}plans.push("Garantir sono adequado à idade, fundamental para o crescimento e regulação hormonal.");return plans;}
-    function renderSimplifiedGrowthChart(profile) { if(growthChartInstance){growthChartInstance.destroy();}const historyData=(profile.imcHistory||[]).map(entry=>({x:entry.totalMonths,y:entry.bmi}));historyData.sort((a,b)=>a.x-b.x);const whoLineDefinitions=[{zValue:-2,label:'Limite: Risco Baixo Peso',color:'rgba(255,193,7,0.8)',dash:[5,5]},{zValue:0,label:'Linha Média (Ideal)',color:'rgba(75,192,75,0.9)',dash:[]},{zValue:1,label:'Limite: Risco Excesso Peso',color:'rgba(255,159,64,0.8)',dash:[5,5]},{zValue:2,label:'Limite: Risco Obesidade',color:'rgba(255,99,132,0.8)',dash:[5,5]}];const whoCurveDatasets=[];let minAgeChart=60;let maxAgeChart=228;if(historyData.length>0){const ages=historyData.map(d=>d.x);minAgeChart=Math.max(60,Math.min(...ages)-24);maxAgeChart=Math.min(228,Math.max(...ages)+24);}else{minAgeChart=Math.max(60,profile.totalMonthsAtCreation-24);maxAgeChart=Math.min(228,profile.totalMonthsAtCreation+24);}const chartAgeRangeMonths=Array.from({length:Math.max(1,maxAgeChart-minAgeChart+1)},(_,i)=>minAgeChart+i);for(const lineDef of whoLineDefinitions){const curveData=[];for(const ageM of chartAgeRangeMonths){const lms=getLMSForAge(profile.genero,ageM);if(lms){const[L,M,S]=lms;let bmiAtZ;if(L!==0){bmiAtZ=M*Math.pow((L*S*lineDef.zValue+1),(1/L));}else{bmiAtZ=M*Math.exp(S*lineDef.zValue);} if(!isNaN(bmiAtZ)&&bmiAtZ>5&&bmiAtZ<45){curveData.push({x:ageM,y:bmiAtZ});}}} if(curveData.length>1){whoCurveDatasets.push({label:lineDef.label,data:curveData,borderColor:lineDef.color,borderWidth:2,pointRadius:0,borderDash:lineDef.dash,fill:false,tension:0.2});}} if(!growthChartCtx){console.error("Growth chart context not found!"); return;} growthChartInstance=new Chart(growthChartCtx,{type:'line',data:{datasets:[{label:`IMC de ${profile.nickname}`,data:historyData,borderColor:'#007bff',backgroundColor:'rgba(0,123,255,0.1)',fill:true,tension:0.2,pointRadius:5,pointBackgroundColor:'#007bff',pointBorderColor:'#fff',pointHoverRadius:7,borderWidth:3},...whoCurveDatasets]},options:{responsive:true,maintainAspectRatio:false,scales:{x:{type:'linear',position:'bottom',title:{display:true,text:'Idade (em anos)',font:{size:14,weight:'500'}},ticks:{stepSize:12,callback:function(value){return(value/12);},font:{size:12}}},y:{title:{display:true,text:'IMC (kg/m²)',font:{size:14,weight:'500'}},min:10,max:38,ticks:{font:{size:12},padding:5}}},plugins:{title:{display:true,text:`Curva de IMC de ${profile.nickname} (Referência OMS Simplificada)`,font:{size:16,weight:'500'},padding:{top:15,bottom:25}},legend:{position:'bottom',labels:{boxWidth:15,padding:20,font:{size:12}}},tooltip:{backgroundColor:'rgba(0,0,0,0.8)',titleFont:{size:14},bodyFont:{size:13},padding:12,callbacks:{title:function(tooltipItems){const ageTotalMonths=tooltipItems[0].parsed.x;const years=Math.floor(ageTotalMonths/12);const months=ageTotalMonths%12;return`Idade: ${years}a ${months}m`;},label:function(context){let label=context.dataset.label||'';if(label){label+=': ';}if(context.parsed.y!==null){label+=context.parsed.y.toFixed(2)+' kg/m²';}return label;}}}},interaction:{mode:'index',intersect:false},}}); }
-    function renderCurrentStatusChart(profile, currentIMC, totalMonths) { if(currentStatusChartInstance){currentStatusChartInstance.destroy();}const zScoresForBars=[-2,0,1,2];const barLabels=['Limite Baixo Peso (Z=-2)','Mediana (Z=0)','Limite Excesso Peso (Z=+1)','Limite Obesidade (Z=+2)'];const barBMIValues=zScoresForBars.map(z=>calculateBMIFromZScore(z,totalMonths,profile.genero));const barColors=['rgba(255,193,7,0.7)','rgba(75,192,75,0.7)','rgba(255,159,64,0.7)','rgba(255,99,132,0.7)'];const displayLabels=[...barLabels,`O SEU IMC ATUAL (${profile.nickname})`];const displayBMIValues=[...barBMIValues,currentIMC];const displayColors=[...barColors,'rgba(0,123,255,0.9)'];if(!currentStatusChartCtx){console.error("Current status chart context not found!"); return;} currentStatusChartInstance=new Chart(currentStatusChartCtx,{type:'bar',data:{labels:displayLabels,datasets:[{label:'IMC (kg/m²)',data:displayBMIValues,backgroundColor:displayColors,borderColor:displayColors.map(color=>color.replace(/0\.[7-9]/,'1')),borderWidth:1,barPercentage:0.7,categoryPercentage:0.8}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',scales:{x:{title:{display:true,text:'Valor de IMC (kg/m²)',font:{size:14,weight:'500'}},ticks:{font:{size:12},padding:5}},y:{ticks:{font:{size:12},padding:5}}},plugins:{title:{display:true,text:`Seu IMC Atual vs. Referências OMS (Idade: ${profile.ageYears}a ${profile.ageMonthsSub}m)`,font:{size:16,weight:'500'},padding:{top:15,bottom:20}},legend:{display:false}}}});}
+    function getEnhancedActionPlan(category, ageYears, activityLevel, sex) {
+        const plans = [];
+        const addAdvice = (type, text) => plans.push({ type, text });
+
+        addAdvice('general', "Lembre-se que estas são sugestões gerais. Aconselhamento individualizado de um profissional de saúde é fundamental.");
+
+        if(category === "Risco de Obesidade" || category === "Excesso de Peso (Sobrepeso)" || category === "Obesidade Grau I" || category === "Obesidade Grau II" || category === "Obesidade Grau III (Mórbida)"){
+            addAdvice('medical', "Consultar um profissional de saúde (médico, nutricionista) para avaliação detalhada e plano de acompanhamento específico.");
+            addAdvice('diet', "Foco em escolhas alimentares saudáveis: aumentar consumo de vegetais, frutas e fibras; reduzir alimentos processados, açucarados e gorduras saturadas.");
+            addAdvice('activity', "Incentivar atividade física diária. Para " + category.toLowerCase() + ", aumentar gradualmente o tempo e a intensidade.");
+            if (activityLevel === "Sedentário") {
+                addAdvice('activity', "Começar com pequenas metas de atividade, como 30 minutos de caminhadas ligeiras ou outras atividades que aprecie.");
+            }
+            addAdvice('lifestyle', "Reduzir tempo sedentário (ex: ecrãs) e promover atividades ativas no dia-a-dia/em família.");
+        } else if (category === "Risco de Baixo Peso (Magreza)" || category === "Risco de Magreza Acentuada" || category === "Baixo Peso") {
+            addAdvice('medical', "Consultar um profissional de saúde para investigar possíveis causas e assegurar um aporte calórico e nutricional adequado.");
+            addAdvice('diet', "Considerar refeições mais frequentes e densas em nutrientes e calorias saudáveis.");
+            if (ageYears < 20) {
+                addAdvice('diet', "Não forçar a alimentação; criar um ambiente positivo às refeições.");
+            }
+        } else { // Peso Normal
+            addAdvice('general', "Parabéns por manter um peso saudável! Continuar a promover hábitos de alimentação equilibrada e atividade física regular.");
+            addAdvice('medical', "Monitorizar o seu peso e saúde regularmente com o seu profissional de saúde.");
+        }
+
+        if (activityLevel === "Sedentário" && category === "Peso Normal") {
+            addAdvice('activity', "Apesar do peso normal, é importante aumentar o nível de atividade física para benefícios de saúde gerais e prevenção futura.");
+        } else if (activityLevel === "Moderado" && (category === "Peso Normal" || category.includes("Excesso de Peso") || category.includes("Obesidade"))) {
+            addAdvice('activity', "O seu nível de atividade é moderado. Considerar aumentar a frequência ou intensidade para otimizar benefícios, especialmente se houver excesso de peso.");
+        } else if (activityLevel === "Ativo" || activityLevel === "Muito Ativo") {
+            addAdvice('activity', `Continuar com o nível de atividade ${activityLevel.toLowerCase()} é ótimo! Varie as atividades para manter o interesse.`);
+        }
+        addAdvice('lifestyle', "Garantir sono adequado, fundamental para a saúde e regulação hormonal.");
+        return plans;
+    }
+    function renderSimplifiedGrowthChart(profile, ageYears) { if(growthChartInstance){growthChartInstance.destroy();}const historyData=(profile.imcHistory||[]).map(entry=>({x:entry.totalMonths,y:entry.bmi}));historyData.sort((a,b)=>a.x-b.x);let whoCurveDatasets = [];if (ageYears < 20 && ageYears >= 1) { const whoLineDefinitions=[{zValue:-2,label:'Limite: Risco Baixo Peso',color:'rgba(255,193,7,0.8)',dash:[5,5]},{zValue:0,label:'Linha Média (Ideal)',color:'rgba(75,192,75,0.9)',dash:[]},{zValue:1,label:'Limite: Risco Excesso Peso',color:'rgba(255,159,64,0.8)',dash:[5,5]},{zValue:2,label:'Limite: Risco Obesidade',color:'rgba(255,99,132,0.8)',dash:[5,5]}];let minAgeChart=60;let maxAgeChart=228;if(historyData.length>0){const ages=historyData.map(d=>d.x);minAgeChart=Math.max(60,Math.min(...ages)-24);maxAgeChart=Math.min(228,Math.max(...ages)+24);}else{minAgeChart=Math.max(60,profile.totalMonthsAtCreation-24);maxAgeChart=Math.min(228,profile.totalMonthsAtCreation+24);}const chartAgeRangeMonths=Array.from({length:Math.max(1,maxAgeChart-minAgeChart+1)},(_,i)=>minAgeChart+i);for(const lineDef of whoLineDefinitions){const curveData=[];for(const ageM of chartAgeRangeMonths){const lms=getLMSForAge(profile.genero,ageM);if(lms){const[L,M,S]=lms;let bmiAtZ;if(L!==0){bmiAtZ=M*Math.pow((L*S*lineDef.zValue+1),(1/L));}else{bmiAtZ=M*Math.exp(S*lineDef.zValue);} if(!isNaN(bmiAtZ)&&bmiAtZ>5&&bmiAtZ<45){curveData.push({x:ageM,y:bmiAtZ});}}} if(curveData.length>1){whoCurveDatasets.push({label:lineDef.label,data:curveData,borderColor:lineDef.color,borderWidth:2,pointRadius:0,borderDash:lineDef.dash,fill:false,tension:0.2});}}} if(!growthChartCtx){console.error("Growth chart context not found!"); return;} growthChartInstance=new Chart(growthChartCtx,{type:'line',data:{datasets:[{label:`IMC de ${profile.nickname}`,data:historyData,borderColor:'#007bff',backgroundColor:'rgba(0,123,255,0.1)',fill:true,tension:0.2,pointRadius:5,pointBackgroundColor:'#007bff',pointBorderColor:'#fff',pointHoverRadius:7,borderWidth:3},...whoCurveDatasets]},options:{responsive:true,maintainAspectRatio:false,scales:{x:{type:'linear',position:'bottom',title:{display:true,text:'Idade (em anos)',font:{size:14,weight:'500'}},ticks:{stepSize:12,callback:function(value){return(value/12);},font:{size:12}}},y:{title:{display:true,text:'IMC (kg/m²)',font:{size:14,weight:'500'}},min:10,max:38,ticks:{font:{size:12},padding:5}}},plugins:{title:{display:true,text:`Evolução do IMC de ${profile.nickname} ${ageYears < 20 ? '(Ref. OMS Simplificada)' : ''}`,font:{size:16,weight:'500'},padding:{top:15,bottom:25}},legend:{position:'bottom',labels:{boxWidth:15,padding:20,font:{size:12}}},tooltip:{backgroundColor:'rgba(0,0,0,0.8)',titleFont:{size:14},bodyFont:{size:13},padding:12,callbacks:{title:function(tooltipItems){const ageTotalMonths=tooltipItems[0].parsed.x;const years=Math.floor(ageTotalMonths/12);const months=ageTotalMonths%12;return`Idade: ${years}a ${months}m`;},label:function(context){let label=context.dataset.label||'';if(label){label+=': ';}if(context.parsed.y!==null){label+=context.parsed.y.toFixed(2)+' kg/m²';}return label;}}}},interaction:{mode:'index',intersect:false},}}); }
+    function renderCurrentStatusChart(profile, currentIMC, totalMonths, ageYears) { if(currentStatusChartInstance){currentStatusChartInstance.destroy();}let barLabels = [], barBMIValues = [], barColors = [];if (ageYears >= 20) { barLabels = ['Baixo Peso (<18.5)','Peso Normal (18.5-24.9)','Sobrepeso (25-29.9)','Obesidade I (30-34.9)','Obesidade II (35-39.9)','Obesidade III (≥40)'];barBMIValues = [18.49, 24.9, 29.9, 34.9, 39.9, 45]; barColors = ['rgba(108,117,125,0.7)','rgba(75,192,75,0.7)','rgba(255,193,7,0.7)','rgba(255,159,64,0.7)','rgba(255,99,132,0.7)','rgba(192,57,43,0.7)']; if (currentIMC < 18.5 && !barLabels.includes('Baixo Peso (<18.5)')) { barLabels.unshift('Baixo Peso (<18.5)'); barBMIValues.unshift(18.49); barColors.unshift('rgba(108,117,125,0.7)');}} else { const zScoresForBars=[-2,0,1,2];barLabels=['Limite: Risco Baixo Peso','Linha Média (Ideal)','Limite: Risco Excesso Peso','Limite: Risco Obesidade'];barBMIValues=zScoresForBars.map(z=>calculateBMIFromZScore(z,totalMonths,profile.genero));barColors=['rgba(255,193,7,0.8)','rgba(75,192,75,0.9)','rgba(255,159,64,0.8)','rgba(255,99,132,0.8)'];} const displayLabels=[...barLabels, `O SEU IMC ATUAL (${profile.nickname})`];const displayBMIValues=[...barBMIValues, currentIMC];const displayColors=[...barColors, 'rgba(0,123,255,0.9)'];if(!currentStatusChartCtx){console.error("Current status chart context not found!"); return;} currentStatusChartInstance=new Chart(currentStatusChartCtx,{type:'bar',data:{labels:displayLabels,datasets:[{label:'IMC (kg/m²)',data:displayBMIValues,backgroundColor:displayColors,borderColor:displayColors.map(color=>color.replace(/0\.[7-9]/,'1')),borderWidth:1,barPercentage:0.7,categoryPercentage:0.8}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',scales:{x:{title:{display:true,text:'Valor de IMC (kg/m²)',font:{size:14,weight:'500'}},ticks:{font:{size:12},padding:5}},y:{ticks:{font:{size:12},padding:5}}},plugins:{title:{display:true,text:`Seu IMC Atual vs. Referências (Idade: ${profile.ageYears}a ${profile.ageMonthsSub}m)`,font:{size:16,weight:'500'},padding:{top:15,bottom:20}},legend:{display:false}}}});}
     
-    if(ui.showGrowthChartBtn) ui.showGrowthChartBtn.onclick = () => { if(ui.growthChartCanvasEl)ui.growthChartCanvasEl.style.display='block';if(ui.currentStatusChartCanvasEl)ui.currentStatusChartCanvasEl.style.display='none';ui.showGrowthChartBtn.classList.add('active-chart-btn');if(ui.showStatusChartBtn)ui.showStatusChartBtn.classList.remove('active-chart-btn');if(selectedProfileIndex>=0&&!isEditingProfile&&profiles[selectedProfileIndex]){if(!growthChartInstance)renderSimplifiedGrowthChart(profiles[selectedProfileIndex]);}};
-    if(ui.showStatusChartBtn) ui.showStatusChartBtn.onclick = () => { if(ui.growthChartCanvasEl)ui.growthChartCanvasEl.style.display='none';if(ui.currentStatusChartCanvasEl)ui.currentStatusChartCanvasEl.style.display='block';if(ui.showGrowthChartBtn)ui.showGrowthChartBtn.classList.remove('active-chart-btn');ui.showStatusChartBtn.classList.add('active-chart-btn');if(selectedProfileIndex>=0&&!isEditingProfile&&profiles[selectedProfileIndex]){const profile=profiles[selectedProfileIndex];const imc=parseFloat(calculateIMC(profile.weight,profile.height).toFixed(2));let currentTotalMonths=(profile.ageYears*12)+profile.ageMonthsSub;if(!currentStatusChartInstance)renderCurrentStatusChart(profile,imc,currentTotalMonths);}};
-    if(ui.submitQuizBtnV2) ui.submitQuizBtnV2.onclick = () => { const answer=document.querySelector('input[name="q1_v2"]:checked');const feedbackEl=ui.quizFeedbackV2;if(feedbackEl){if(answer){if(answer.value==='c'){feedbackEl.textContent="Correto! Um Z-Score de +2.5 geralmente indica Risco de Obesidade.";feedbackEl.className='quiz-feedback correct';}else{feedbackEl.textContent="Não exatamente. A resposta correta é 'Risco de Obesidade'. Um Z-Score acima de +2 indica risco de obesidade.";feedbackEl.className='quiz-feedback incorrect';}}else{feedbackEl.textContent="Por favor, selecione uma resposta.";feedbackEl.className='quiz-feedback incorrect';}}};
+    if(ui.showGrowthChartBtn) ui.showGrowthChartBtn.onclick = () => { if(ui.growthChartCanvasEl)ui.growthChartCanvasEl.style.display='block';if(ui.currentStatusChartCanvasEl)ui.currentStatusChartCanvasEl.style.display='none';ui.showGrowthChartBtn.classList.add('active-chart-btn');if(ui.showStatusChartBtn)ui.showStatusChartBtn.classList.remove('active-chart-btn');if(selectedProfileIndex>=0&&!isEditingProfile&&profiles[selectedProfileIndex]){if(!growthChartInstance)renderSimplifiedGrowthChart(profiles[selectedProfileIndex], profiles[selectedProfileIndex].ageYears);}};
+    if(ui.showStatusChartBtn) ui.showStatusChartBtn.onclick = () => { if(ui.growthChartCanvasEl)ui.growthChartCanvasEl.style.display='none';if(ui.currentStatusChartCanvasEl)ui.currentStatusChartCanvasEl.style.display='block';if(ui.showGrowthChartBtn)ui.showGrowthChartBtn.classList.remove('active-chart-btn');ui.showStatusChartBtn.classList.add('active-chart-btn');if(selectedProfileIndex>=0&&!isEditingProfile&&profiles[selectedProfileIndex]){const profile=profiles[selectedProfileIndex];const imc=parseFloat(calculateIMC(profile.weight,profile.height).toFixed(2));let currentTotalMonths=(profile.ageYears*12)+profile.ageMonthsSub;if(!currentStatusChartInstance)renderCurrentStatusChart(profile,imc,currentTotalMonths, profile.ageYears);}};
     
     if(ui.learnMoreBtn && ui.educationalModal) ui.learnMoreBtn.onclick = () => { ui.educationalModal.style.display = "block"; };
     if(ui.modalCloseBtn && ui.educationalModal) ui.modalCloseBtn.onclick = () => { ui.educationalModal.style.display = "none"; };
     window.onclick = (event) => { if (ui.educationalModal && event.target == ui.educationalModal) { ui.educationalModal.style.display = "none"; } };
 
-    const PDF_STYLES = { PAGE_MARGIN:40,COLOR_TITLE:"#005ea2",COLOR_SECTION_HEADER:"#00528e",COLOR_TEXT_PRIMARY:"#3f4a54",COLOR_TEXT_SECONDARY:"#5a6268",FONT_SIZE_MAIN_TITLE:20,FONT_SIZE_SECTION_TITLE:14,FONT_SIZE_BODY:12,FONT_SIZE_SMALL:10,FONT_SIZE_XSMALL:9,LINE_SPACING_LARGE:35,LINE_SPACING_MEDIUM:25,LINE_SPACING_NORMAL:20,LINE_SPACING_SMALL:10,LINE_SPACING_ITEM:8,INDENT:10 };
+    const PDF_STYLES = { PAGE_MARGIN:40,COLOR_TITLE:"#005ea2",COLOR_SECTION_HEADER:"#00528e",COLOR_TEXT_PRIMARY:"#3f4a54",COLOR_TEXT_SECONDARY:"#5a6268",COLOR_TEXT_MUTED:"#6c757d",FONT_SIZE_MAIN_TITLE:20,FONT_SIZE_SECTION_TITLE:14,FONT_SIZE_BODY:12,FONT_SIZE_SMALL:10,FONT_SIZE_XSMALL:9,LINE_SPACING_LARGE:35,LINE_SPACING_MEDIUM:25,LINE_SPACING_NORMAL:20,LINE_SPACING_SMALL:10,LINE_SPACING_ITEM:8,INDENT:10 };
     function checkAndAddPage(pdf, currentY, contentHeight, pageMargin) { if(currentY+contentHeight > pdf.internal.pageSize.getHeight()-pageMargin){pdf.addPage();return pageMargin;}return currentY; }
-    function drawPdfHeaderAndProfile(pdf, profile, currentY, S) { pdf.setFontSize(S.FONT_SIZE_MAIN_TITLE);pdf.setTextColor(S.COLOR_TITLE);pdf.text(`Relatório de Check-Up IMC - ${profile.nickname}`,S.PAGE_MARGIN,currentY);currentY+=S.LINE_SPACING_LARGE;pdf.setFontSize(S.FONT_SIZE_BODY);pdf.setTextColor(S.COLOR_TEXT_PRIMARY);pdf.text(`Data do Relatório: ${new Date().toLocaleDateString('pt-PT')}`,S.PAGE_MARGIN,currentY);currentY+=S.LINE_SPACING_NORMAL;const ageString=`Idade (no cálculo): ${profile.ageYears} anos e ${profile.ageMonthsSub} meses`;pdf.text(ageString,S.PAGE_MARGIN,currentY);pdf.text(`Género: ${profile.genero==='rapaz'?'Rapaz':'Rapariga'}`,S.PAGE_MARGIN+pdf.getStringUnitWidth(ageString)*S.FONT_SIZE_BODY+30,currentY);currentY+=S.LINE_SPACING_NORMAL;let activityCommentPdf="";switch(profile.activity){case"Sedentário":activityCommentPdf="Importante aumentar.";break;case"Moderado":activityCommentPdf="Bom! Considerar aumentar.";break;case"Ativo":activityCommentPdf="Excelente! Manter.";break;}pdf.text(`Nível de Atividade: ${profile.activity} (${activityCommentPdf})`,S.PAGE_MARGIN,currentY);currentY+=S.LINE_SPACING_MEDIUM;pdf.setLineWidth(0.5);pdf.line(S.PAGE_MARGIN,currentY-5,pdf.internal.pageSize.getWidth()-S.PAGE_MARGIN,currentY-5);currentY+=S.LINE_SPACING_NORMAL;return currentY;}
-    function drawPdfWhoResults(pdf, currentY, S, contentWidth) { pdf.setFontSize(S.FONT_SIZE_SECTION_TITLE);pdf.setTextColor(S.COLOR_SECTION_HEADER);pdf.text("Avaliação Nutricional (OMS - Simplificado):",S.PAGE_MARGIN,currentY);currentY+=S.LINE_SPACING_MEDIUM;const numFieldsPerRow=2;const fieldWidth=(contentWidth/numFieldsPerRow)-(S.INDENT*(numFieldsPerRow-1)/numFieldsPerRow);let fieldX=S.PAGE_MARGIN;let initialYForRow=currentY;const resultsData=[{label:"Altura",value:(ui.profileHeight?ui.profileHeight.textContent:'N/A')+" cm"},{label:"Peso",value:(ui.profileWeight?ui.profileWeight.textContent:'N/A')+" kg"},{label:"IMC",value:(ui.imcValue?ui.imcValue.textContent:'N/A')+" kg/m²"},{label:"Z-Score (OMS)",value:ui.whoZScore?ui.whoZScore.textContent:'N/A'},{label:"Percentil (OMS)",value:(ui.whoPercentile?ui.whoPercentile.textContent:'N/A')+"º"},{label:"Categoria (OMS)",value:ui.whoCategory?ui.whoCategory.textContent:'N/A'},];resultsData.forEach((item,index)=>{if(index>0&&index%numFieldsPerRow===0){currentY=initialYForRow+35+5;fieldX=S.PAGE_MARGIN;initialYForRow=currentY;}drawField(pdf,fieldX,initialYForRow,fieldWidth,item.value,item.label,S);fieldX+=fieldWidth+S.INDENT;});currentY=initialYForRow+35+5+S.LINE_SPACING_MEDIUM;return currentY;}
+    function drawPdfHeaderAndProfile(pdf, profile, currentY, S) { pdf.setFontSize(S.FONT_SIZE_MAIN_TITLE);pdf.setTextColor(S.COLOR_TITLE);pdf.text(`Relatório de IMC e Saúde - ${profile.nickname}`,S.PAGE_MARGIN,currentY);currentY+=S.LINE_SPACING_LARGE;pdf.setFontSize(S.FONT_SIZE_BODY);pdf.setTextColor(S.COLOR_TEXT_PRIMARY);pdf.text(`Data do Relatório: ${new Date().toLocaleDateString('pt-PT')}`,S.PAGE_MARGIN,currentY);currentY+=S.LINE_SPACING_NORMAL;const ageString=`Idade (no cálculo): ${profile.ageYears} anos e ${profile.ageMonthsSub} meses`;pdf.text(ageString,S.PAGE_MARGIN,currentY);pdf.text(`Género: ${profile.genero}`,S.PAGE_MARGIN+pdf.getStringUnitWidth(ageString)*S.FONT_SIZE_BODY+30,currentY);currentY+=S.LINE_SPACING_NORMAL;let activityCommentPdf="";switch(profile.activity){case"Sedentário":activityCommentPdf="Importante aumentar.";break;case"Moderado":activityCommentPdf="Bom! Considerar aumentar.";break;case"Ativo":activityCommentPdf="Excelente! Manter.";break; case "Muito Ativo": activityCommentPdf = "Fantástico! Continue."; break;}pdf.text(`Nível de Atividade: ${profile.activity} (${activityCommentPdf})`,S.PAGE_MARGIN,currentY);currentY+=S.LINE_SPACING_MEDIUM;pdf.setLineWidth(0.5);pdf.line(S.PAGE_MARGIN,currentY-5,pdf.internal.pageSize.getWidth()-S.PAGE_MARGIN,currentY-5);currentY+=S.LINE_SPACING_NORMAL;return currentY;}
+    function drawPdfWhoResults(pdf, currentY, S, contentWidth) { 
+        pdf.setFontSize(S.FONT_SIZE_SECTION_TITLE);pdf.setTextColor(S.COLOR_SECTION_HEADER);pdf.text("Avaliação Nutricional:",S.PAGE_MARGIN,currentY); 
+        currentY+=S.LINE_SPACING_MEDIUM;
+        const numFieldsPerRow=2;const fieldWidth=(contentWidth/numFieldsPerRow)-(S.INDENT*(numFieldsPerRow-1)/numFieldsPerRow);let fieldX=S.PAGE_MARGIN;let initialYForRow=currentY;
+        const profile = profiles[selectedProfileIndex]; 
+        const resultsData=[
+            {label:"Altura",value:(ui.profileHeight?ui.profileHeight.textContent:'N/A')+" cm"},
+            {label:"Peso",value:(ui.profileWeight?ui.profileWeight.textContent:'N/A')+" kg"},
+            {label:"IMC",value:(ui.imcValue?ui.imcValue.textContent:'N/A')+" kg/m²"},
+            {label:"Categoria de IMC",value:ui.whoCategory?ui.whoCategory.textContent:'N/A'}, 
+        ];
+        if (profile && profile.ageYears < 20) {
+            resultsData.push({label:"Z-Score (OMS)",value:ui.whoZScore?ui.whoZScore.textContent:'N/A'});
+            resultsData.push({label:"Percentil (OMS)",value:(ui.whoPercentile?ui.whoPercentile.textContent:'N/A')+"º"});
+        }
+
+        resultsData.forEach((item,index)=>{
+            let currentFieldWidth = fieldWidth;
+            if (index === resultsData.length - 1 && (resultsData.length % numFieldsPerRow !== 0 || numFieldsPerRow === 1)) {
+                 currentFieldWidth = contentWidth; 
+            }
+            if(index > 0 && index % numFieldsPerRow === 0){currentY=initialYForRow+35+5;fieldX=S.PAGE_MARGIN;initialYForRow=currentY;}
+            drawField(pdf,fieldX,initialYForRow,currentFieldWidth,item.value,item.label,S);
+            if (index === resultsData.length - 1 && (resultsData.length % numFieldsPerRow === 0) && numFieldsPerRow > 1) {
+            } else if (index < resultsData.length - 1 && (index + 1) % numFieldsPerRow !== 0) {
+                 fieldX += currentFieldWidth + S.INDENT; 
+            }
+        });
+        currentY=initialYForRow+35+5+S.LINE_SPACING_MEDIUM;return currentY;
+    }
     function drawField(pdf, x, y, width, value, label, S) { const fieldHeight=35;const labelOffsetY=12;const valueOffsetY=25;const textIndent=5;pdf.setFillColor(248,249,250);pdf.setDrawColor(222,226,230);pdf.roundedRect(x,y,width,fieldHeight,3,3,'FD');pdf.setFontSize(S.FONT_SIZE_XSMALL);pdf.setTextColor(S.COLOR_TEXT_SECONDARY);pdf.text(label,x+textIndent,y+labelOffsetY);pdf.setFontSize(S.FONT_SIZE_BODY);pdf.setTextColor(S.COLOR_TEXT_PRIMARY);pdf.text(value,x+textIndent,y+valueOffsetY);}
     function drawPdfOneChart(pdf, currentY, S, contentWidth, chartCanvasId, chartTitleText) {
         const chartCanvas = $(chartCanvasId);
         const chartInstance = chartCanvasId === 'growthChartCanvas' ? growthChartInstance : currentStatusChartInstance;
-
-        if (!chartCanvas || !chartInstance) {
-            console.warn(`Chart instance or canvas for ${chartCanvasId} not found for PDF export. Skipping this chart.`);
-            return currentY; 
-        }
-
+        if (!chartCanvas || !chartInstance) { console.warn(`Chart instance or canvas for ${chartCanvasId} not for PDF. Skipping.`); return currentY; }
         const chartTitleHeight = S.FONT_SIZE_SECTION_TITLE + S.LINE_SPACING_MEDIUM;
-        currentY = checkAndAddPage(pdf, currentY, chartTitleHeight, S.PAGE_MARGIN);
-        pdf.setFontSize(S.FONT_SIZE_SECTION_TITLE);
-        pdf.setTextColor(S.COLOR_SECTION_HEADER);
-        pdf.text(chartTitleText, S.PAGE_MARGIN, currentY);
-        currentY += S.LINE_SPACING_MEDIUM;
-        
-        const tempCanvas = document.createElement('canvas');
-        const imageScaleFactor = 4; 
-        
-        const originalCanvasWidth = chartCanvas.width || 300; 
-        const originalCanvasHeight = chartCanvas.height || 150;
-
-        tempCanvas.width = originalCanvasWidth * imageScaleFactor;
-        tempCanvas.height = originalCanvasHeight * imageScaleFactor;
-        
-        const tempCtx = tempCanvas.getContext('2d');
-        tempCtx.scale(imageScaleFactor, imageScaleFactor);
-        tempCtx.fillStyle = '#FFFFFF'; 
-        tempCtx.fillRect(0, 0, originalCanvasWidth, originalCanvasHeight);
-        
-        try {
-            tempCtx.drawImage(chartCanvas, 0, 0, originalCanvasWidth, originalCanvasHeight);
-        } catch (e) {
-            console.error("Error drawing chart to temp canvas for PDF:", e);
-            pdf.setTextColor(255, 0, 0); 
-            pdf.text("Erro ao gerar imagem do gráfico.", S.PAGE_MARGIN + S.INDENT, currentY);
-            currentY += S.LINE_SPACING_NORMAL;
-            return currentY; 
-        }
-        
+        const minChartPortionHeight = 50; 
+        if (currentY + chartTitleHeight + minChartPortionHeight > pdf.internal.pageSize.getHeight() - S.PAGE_MARGIN) { pdf.addPage(); currentY = S.PAGE_MARGIN; }
+        pdf.setFontSize(S.FONT_SIZE_SECTION_TITLE); pdf.setTextColor(S.COLOR_SECTION_HEADER); pdf.text(chartTitleText, S.PAGE_MARGIN, currentY); currentY += S.LINE_SPACING_MEDIUM;
+        const tempCanvas = document.createElement('canvas'); const imageScaleFactor = 4; 
+        const originalCanvasWidth = chartCanvas.width || 300; const originalCanvasHeight = chartCanvas.height || 150;
+        tempCanvas.width = originalCanvasWidth * imageScaleFactor; tempCanvas.height = originalCanvasHeight * imageScaleFactor;
+        const tempCtx = tempCanvas.getContext('2d'); tempCtx.scale(imageScaleFactor, imageScaleFactor); tempCtx.fillStyle = '#FFFFFF'; tempCtx.fillRect(0, 0, originalCanvasWidth, originalCanvasHeight);
+        try { tempCtx.drawImage(chartCanvas, 0, 0, originalCanvasWidth, originalCanvasHeight); }
+        catch (e) { console.error("Error drawing chart to temp canvas for PDF:", e); pdf.setTextColor(255, 0, 0); pdf.text("Erro ao gerar imagem do gráfico.", S.PAGE_MARGIN + S.INDENT, currentY); currentY += S.LINE_SPACING_NORMAL; return currentY; }
         const imgData = tempCanvas.toDataURL('image/png', 1.0); 
-        
-        const pdfChartWidth = contentWidth * 0.8; 
-        const pdfChartHeight = (originalCanvasHeight * pdfChartWidth) / originalCanvasWidth;
-        
-        currentY = checkAndAddPage(pdf, currentY, pdfChartHeight, S.PAGE_MARGIN);
+        const pdfChartWidth = contentWidth * 0.8; const pdfChartHeight = (originalCanvasHeight * pdfChartWidth) / originalCanvasWidth;
+        if (currentY + pdfChartHeight > pdf.internal.pageSize.getHeight() - S.PAGE_MARGIN) { pdf.addPage(); currentY = S.PAGE_MARGIN; pdf.setFontSize(S.FONT_SIZE_SECTION_TITLE); pdf.setTextColor(S.COLOR_SECTION_HEADER); pdf.text(chartTitleText, S.PAGE_MARGIN, currentY); currentY += S.LINE_SPACING_MEDIUM; }
         pdf.addImage(imgData, 'PNG', S.PAGE_MARGIN + (contentWidth - pdfChartWidth) / 2, currentY, pdfChartWidth, pdfChartHeight);
-        currentY += pdfChartHeight + S.LINE_SPACING_MEDIUM;
-        return currentY;
+        currentY += pdfChartHeight + S.LINE_SPACING_MEDIUM; return currentY;
     }
-    function drawPdfActionPlan(pdf, currentY, S, contentWidth) { const planTitleHeight=S.FONT_SIZE_SECTION_TITLE+S.LINE_SPACING_MEDIUM;currentY=checkAndAddPage(pdf,currentY,planTitleHeight+50,S.PAGE_MARGIN);pdf.setFontSize(S.FONT_SIZE_SECTION_TITLE);pdf.setTextColor(S.COLOR_SECTION_HEADER);pdf.text("Plano de Ação Sugerido:",S.PAGE_MARGIN,currentY);currentY+=S.LINE_SPACING_MEDIUM;pdf.setFontSize(S.FONT_SIZE_SMALL);pdf.setTextColor(S.COLOR_TEXT_PRIMARY);const planListUl=ui.planList; if(planListUl){const planListItems=planListUl.getElementsByTagName('li');for(let i=0;i<planListItems.length;i++){const itemTextLines=pdf.splitTextToSize(`• ${planListItems[i].textContent}`,contentWidth-S.INDENT);const itemBlockHeight=itemTextLines.length*S.LINE_SPACING_SMALL+S.LINE_SPACING_ITEM;currentY=checkAndAddPage(pdf,currentY,itemBlockHeight,S.PAGE_MARGIN);if(currentY===S.PAGE_MARGIN){pdf.setFontSize(S.FONT_SIZE_SMALL);pdf.setTextColor(S.COLOR_TEXT_PRIMARY);} pdf.text(itemTextLines,S.PAGE_MARGIN+S.INDENT,currentY);currentY+=itemBlockHeight;}} currentY+=S.LINE_SPACING_SMALL;return currentY;}
-    function drawPdfDisclaimer(pdf, currentY, S, contentWidth) { const disclaimer="Lembre-se: os cálculos da OMS são simplificados para demonstração. Estas são sugestões gerais. Consulte sempre um pediatra ou nutricionista para aconselhamento personalizado.";const disclaimerLines=pdf.splitTextToSize(disclaimer,contentWidth);const disclaimerHeight=disclaimerLines.length*S.FONT_SIZE_XSMALL+S.LINE_SPACING_SMALL;currentY=checkAndAddPage(pdf,currentY,disclaimerHeight,S.PAGE_MARGIN);pdf.setFontSize(S.FONT_SIZE_XSMALL);pdf.setTextColor(S.COLOR_TEXT_SECONDARY);pdf.text(disclaimerLines,S.PAGE_MARGIN,currentY);currentY+=disclaimerHeight;return currentY;}
+    function drawPdfActionPlan(pdf, currentY, S, contentWidth) { const planTitleHeight=S.FONT_SIZE_SECTION_TITLE+S.LINE_SPACING_MEDIUM;currentY=checkAndAddPage(pdf,currentY,planTitleHeight+50,S.PAGE_MARGIN);pdf.setFontSize(S.FONT_SIZE_SECTION_TITLE);pdf.setTextColor(S.COLOR_SECTION_HEADER);pdf.text("Plano de Ação Sugerido:",S.PAGE_MARGIN,currentY);currentY+=S.LINE_SPACING_MEDIUM;pdf.setFontSize(S.FONT_SIZE_SMALL);pdf.setTextColor(S.COLOR_TEXT_PRIMARY);const planListUl=ui.planList; if(planListUl){const planListItems=planListUl.getElementsByTagName('li');for(let i=0;i<planListItems.length;i++){const itemTextLines=pdf.splitTextToSize(`${planListItems[i].getAttribute('data-icon') || '•'} ${planListItems[i].textContent}`,contentWidth-S.INDENT);const itemBlockHeight=itemTextLines.length*S.LINE_SPACING_SMALL+S.LINE_SPACING_ITEM;currentY=checkAndAddPage(pdf,currentY,itemBlockHeight,S.PAGE_MARGIN);if(currentY===S.PAGE_MARGIN){pdf.setFontSize(S.FONT_SIZE_SMALL);pdf.setTextColor(S.COLOR_TEXT_PRIMARY);} pdf.text(itemTextLines,S.PAGE_MARGIN+S.INDENT,currentY);currentY+=itemBlockHeight;}} currentY+=S.LINE_SPACING_SMALL;return currentY;}
+    function drawPdfDisclaimer(pdf, currentY, S, contentWidth) { const disclaimer="Lembre-se: os cálculos da OMS são simplificados para demonstração. Estas são sugestões gerais. Consulte sempre um profissional de saúde para aconselhamento personalizado.";const disclaimerLines=pdf.splitTextToSize(disclaimer,contentWidth);const disclaimerHeight=disclaimerLines.length*S.FONT_SIZE_XSMALL+S.LINE_SPACING_SMALL;currentY=checkAndAddPage(pdf,currentY,disclaimerHeight,S.PAGE_MARGIN);pdf.setFontSize(S.FONT_SIZE_XSMALL);pdf.setTextColor(S.COLOR_TEXT_SECONDARY);pdf.text(disclaimerLines,S.PAGE_MARGIN,currentY);currentY+=disclaimerHeight;return currentY;}
 
     if(ui.exportBtn) ui.exportBtn.onclick = () => {
         if(selectedProfileIndex<0||isEditingProfile||!profiles[selectedProfileIndex]){alert('Selecione um perfil e calcule os resultados para exportar.');return;}
         const profile=profiles[selectedProfileIndex];let chartsReadyForExport=true;
         try{
-            if(!growthChartInstance && ui.growthChartCanvasEl && ui.growthChartCanvasEl.style.display !== 'none'){renderSimplifiedGrowthChart(profile);}
-            else if(!growthChartInstance){renderSimplifiedGrowthChart(profile);} 
-            
-            if(!currentStatusChartInstance && ui.currentStatusChartCanvasEl && ui.currentStatusChartCanvasEl.style.display !== 'none'){const imc=parseFloat(calculateIMC(profile.weight,profile.height).toFixed(2));let currentTotalMonths=(profile.ageYears*12)+profile.ageMonthsSub;renderCurrentStatusChart(profile,imc,currentTotalMonths);}
-            else if(!currentStatusChartInstance){const imc=parseFloat(calculateIMC(profile.weight,profile.height).toFixed(2));let currentTotalMonths=(profile.ageYears*12)+profile.ageMonthsSub;renderCurrentStatusChart(profile,imc,currentTotalMonths);}
-
+            if(!growthChartInstance && ui.growthChartCanvasEl ){renderSimplifiedGrowthChart(profile, profile.ageYears);}
+            if(!currentStatusChartInstance && ui.currentStatusChartCanvasEl){const imc=parseFloat(calculateIMC(profile.weight,profile.height).toFixed(2));let currentTotalMonths=(profile.ageYears*12)+profile.ageMonthsSub;renderCurrentStatusChart(profile,imc,currentTotalMonths, profile.ageYears);}
             if(!growthChartInstance||!currentStatusChartInstance){chartsReadyForExport=false;}
         }catch(renderError){console.error("Erro ao renderizar gráficos para PDF:",renderError);alert("Ocorreu um erro ao preparar os gráficos. Tente novamente.");chartsReadyForExport=false;return;}
         if(!chartsReadyForExport){alert("Gráficos não prontos. Tente calcular novamente.");return;}
@@ -637,16 +757,25 @@
                 const contentWidth=pdf.internal.pageSize.getWidth()-(2*S.PAGE_MARGIN);let currentY=S.PAGE_MARGIN;
                 currentY=drawPdfHeaderAndProfile(pdf,profile,currentY,S);
                 currentY=drawPdfWhoResults(pdf,currentY,S,contentWidth);
-                currentY=drawPdfOneChart(pdf,currentY,S,contentWidth,'growthChartCanvas',"Curva de IMC (OMS - Simplificada e Ilustrativa):");
-                currentY=drawPdfOneChart(pdf,currentY,S,contentWidth,'currentStatusChartCanvas',`IMC Atual (${profile.nickname}) vs. Referências OMS:`);
+                currentY=drawPdfOneChart(pdf,currentY,S,contentWidth,'growthChartCanvas', profile.ageYears < 20 ? "Curva de IMC (OMS - Simplificada e Ilustrativa):" : "Evolução do IMC:");
+                currentY=drawPdfOneChart(pdf,currentY,S,contentWidth,'currentStatusChartCanvas',`IMC Atual (${profile.nickname}) vs. Referências:`);
                 currentY=drawPdfActionPlan(pdf,currentY,S,contentWidth);
                 currentY=drawPdfDisclaimer(pdf,currentY,S,contentWidth);
-                pdf.save(`CheckUp_IMC_${profile.nickname.replace(/\s+/g,'_')}_${new Date().toLocaleDateString('pt-PT').replace(/\//g,'-')}.pdf`);
+
+                const pageCount = pdf.internal.getNumberOfPages();
+                for(let i = 1; i <= pageCount; i++) {
+                    pdf.setPage(i);
+                    pdf.setFontSize(S.FONT_SIZE_XSMALL);
+                    pdf.setTextColor(S.COLOR_TEXT_MUTED); // Ensure this color is defined in PDF_STYLES
+                    pdf.text(`Página ${i} de ${pageCount}`, pdf.internal.pageSize.getWidth() / 2, pdf.internal.pageSize.getHeight() - (S.PAGE_MARGIN / 2), { align: 'center' });
+                }
+
+                pdf.save(`Relatorio_IMC_Saude_${profile.nickname.replace(/\s+/g,'_')}_${new Date().toLocaleDateString('pt-PT').replace(/\//g,'-')}.pdf`);
             } catch (pdfError) {
                 console.error("Erro durante a geração do PDF:", pdfError);
                 alert("Ocorreu um erro ao gerar o PDF: " + pdfError.message);
             }
-        },350);
+        },400); 
     };
 
     // Initial page setup
@@ -673,3 +802,4 @@
   </script>
 </body>
 </html>
+
