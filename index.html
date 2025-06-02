@@ -204,13 +204,32 @@
     #actionPlan ul { list-style-type: none; padding-left: 0; }
     .action-plan-item {
         display: flex; align-items: flex-start; margin-bottom: 1rem;
-        padding: 0.8rem 1rem; border-radius: var(--border-radius-sm);
-        background-color: var(--lighter-bg); border: 1px solid var(--border-color);
+        padding: 1rem 1.25rem; 
+        border-radius: var(--border-radius-md); 
+        background-color: var(--lighter-bg); 
+        border: 1px solid var(--border-color);
         box-shadow: var(--shadow-sm);
+        transition: box-shadow var(--transition-speed), transform var(--transition-speed);
     }
+    .action-plan-item:hover {
+        box-shadow: var(--shadow-md);
+        transform: translateY(-2px);
+    }
+    /* Icon styling using ::before pseudo-element */
     .action-plan-item::before { 
-        margin-right: 0.75rem; font-size: 1.2em; line-height: 1.4; 
+        margin-right: 0.85rem; /* Increased spacing */
+        font-size: 1.4em; /* Slightly larger icon */
+        line-height: 1.5; 
+        flex-shrink: 0; 
+        display: inline-block; /* Ensure it takes space */
+        width: 1.5em; /* Give it a fixed width for alignment */
+        text-align: center; /* Center icon in its space */
     }
+    .action-plan-item-text { 
+        flex-grow: 1; 
+        word-break: break-word; 
+    }
+
     .action-plan-general::before { content: "ℹ️"; }
     .action-plan-medical::before { content: "⚕️"; color: var(--danger-color); }
     .action-plan-diet::before { content: "🥗"; color: var(--success-color); }
@@ -612,8 +631,20 @@
             planItems.forEach(item => { 
                 const li = document.createElement('li');
                 li.className = `action-plan-item action-plan-${item.type || 'general'}`;
-                li.textContent = item.text; 
-                li.setAttribute('data-icon', item.type === 'medical' ? '⚕️' : item.type === 'diet' ? '🥗' : item.type === 'activity' ? '🏃' : item.type === 'lifestyle' ? '🌙' : 'ℹ️'); // For PDF
+                
+                const iconSpan = document.createElement('span'); // Create a separate span for icon
+                iconSpan.className = 'action-plan-item-icon'; 
+                // The ::before pseudo-element will handle the actual icon via CSS
+                
+                const textSpan = document.createElement('span');
+                textSpan.className = 'action-plan-item-text';
+                textSpan.textContent = item.text;
+
+                li.appendChild(iconSpan); // Add icon span first
+                li.appendChild(textSpan); // Then add text span
+                
+                // For PDF - store icon in data-attribute (still useful for PDF logic)
+                li.setAttribute('data-icon', item.type === 'medical' ? '⚕️' : item.type === 'diet' ? '🥗' : item.type === 'activity' ? '🏃' : item.type === 'lifestyle' ? '🌙' : 'ℹ️');
                 ui.planList.appendChild(li); 
             });
         }
@@ -726,19 +757,56 @@
         const minChartPortionHeight = 50; 
         if (currentY + chartTitleHeight + minChartPortionHeight > pdf.internal.pageSize.getHeight() - S.PAGE_MARGIN) { pdf.addPage(); currentY = S.PAGE_MARGIN; }
         pdf.setFontSize(S.FONT_SIZE_SECTION_TITLE); pdf.setTextColor(S.COLOR_SECTION_HEADER); pdf.text(chartTitleText, S.PAGE_MARGIN, currentY); currentY += S.LINE_SPACING_MEDIUM;
-        const tempCanvas = document.createElement('canvas'); const imageScaleFactor = 4; 
+        const tempCanvas = document.createElement('canvas'); const imageScaleFactor = 2; 
         const originalCanvasWidth = chartCanvas.width || 300; const originalCanvasHeight = chartCanvas.height || 150;
         tempCanvas.width = originalCanvasWidth * imageScaleFactor; tempCanvas.height = originalCanvasHeight * imageScaleFactor;
         const tempCtx = tempCanvas.getContext('2d'); tempCtx.scale(imageScaleFactor, imageScaleFactor); tempCtx.fillStyle = '#FFFFFF'; tempCtx.fillRect(0, 0, originalCanvasWidth, originalCanvasHeight);
         try { tempCtx.drawImage(chartCanvas, 0, 0, originalCanvasWidth, originalCanvasHeight); }
         catch (e) { console.error("Error drawing chart to temp canvas for PDF:", e); pdf.setTextColor(255, 0, 0); pdf.text("Erro ao gerar imagem do gráfico.", S.PAGE_MARGIN + S.INDENT, currentY); currentY += S.LINE_SPACING_NORMAL; return currentY; }
-        const imgData = tempCanvas.toDataURL('image/png', 1.0); 
+        const imgData = tempCanvas.toDataURL('image/jpeg', 0.85); 
         const pdfChartWidth = contentWidth * 0.8; const pdfChartHeight = (originalCanvasHeight * pdfChartWidth) / originalCanvasWidth;
         if (currentY + pdfChartHeight > pdf.internal.pageSize.getHeight() - S.PAGE_MARGIN) { pdf.addPage(); currentY = S.PAGE_MARGIN; pdf.setFontSize(S.FONT_SIZE_SECTION_TITLE); pdf.setTextColor(S.COLOR_SECTION_HEADER); pdf.text(chartTitleText, S.PAGE_MARGIN, currentY); currentY += S.LINE_SPACING_MEDIUM; }
-        pdf.addImage(imgData, 'PNG', S.PAGE_MARGIN + (contentWidth - pdfChartWidth) / 2, currentY, pdfChartWidth, pdfChartHeight);
+        pdf.addImage(imgData, 'JPEG', S.PAGE_MARGIN + (contentWidth - pdfChartWidth) / 2, currentY, pdfChartWidth, pdfChartHeight);
         currentY += pdfChartHeight + S.LINE_SPACING_MEDIUM; return currentY;
     }
-    function drawPdfActionPlan(pdf, currentY, S, contentWidth) { const planTitleHeight=S.FONT_SIZE_SECTION_TITLE+S.LINE_SPACING_MEDIUM;currentY=checkAndAddPage(pdf,currentY,planTitleHeight+50,S.PAGE_MARGIN);pdf.setFontSize(S.FONT_SIZE_SECTION_TITLE);pdf.setTextColor(S.COLOR_SECTION_HEADER);pdf.text("Plano de Ação Sugerido:",S.PAGE_MARGIN,currentY);currentY+=S.LINE_SPACING_MEDIUM;pdf.setFontSize(S.FONT_SIZE_SMALL);pdf.setTextColor(S.COLOR_TEXT_PRIMARY);const planListUl=ui.planList; if(planListUl){const planListItems=planListUl.getElementsByTagName('li');for(let i=0;i<planListItems.length;i++){const itemTextLines=pdf.splitTextToSize(`${planListItems[i].getAttribute('data-icon') || '•'} ${planListItems[i].textContent}`,contentWidth-S.INDENT);const itemBlockHeight=itemTextLines.length*S.LINE_SPACING_SMALL+S.LINE_SPACING_ITEM;currentY=checkAndAddPage(pdf,currentY,itemBlockHeight,S.PAGE_MARGIN);if(currentY===S.PAGE_MARGIN){pdf.setFontSize(S.FONT_SIZE_SMALL);pdf.setTextColor(S.COLOR_TEXT_PRIMARY);} pdf.text(itemTextLines,S.PAGE_MARGIN+S.INDENT,currentY);currentY+=itemBlockHeight;}} currentY+=S.LINE_SPACING_SMALL;return currentY;}
+    function drawPdfActionPlan(pdf, currentY, S, contentWidth) { 
+        const planTitleHeight=S.FONT_SIZE_SECTION_TITLE+S.LINE_SPACING_MEDIUM;
+        currentY=checkAndAddPage(pdf,currentY,planTitleHeight+50,S.PAGE_MARGIN); // +50 for a few items
+        pdf.setFontSize(S.FONT_SIZE_SECTION_TITLE);pdf.setTextColor(S.COLOR_SECTION_HEADER);
+        pdf.text("Plano de Ação Sugerido:",S.PAGE_MARGIN,currentY);
+        currentY+=S.LINE_SPACING_MEDIUM;
+        pdf.setFontSize(S.FONT_SIZE_SMALL);pdf.setTextColor(S.COLOR_TEXT_PRIMARY);
+        
+        const planListUl=ui.planList; 
+        if(planListUl){
+            const planListItems=planListUl.getElementsByTagName('li');
+            for(let i=0;i<planListItems.length;i++){
+                const textSpan = planListItems[i].querySelector('.action-plan-item-text');
+                const itemText = textSpan ? textSpan.textContent : planListItems[i].textContent;
+                
+                let prefix = "•"; // Default bullet
+                if (planListItems[i].classList.contains('action-plan-medical')) prefix = "[Médico]";
+                else if (planListItems[i].classList.contains('action-plan-diet')) prefix = "[Alimentação]";
+                else if (planListItems[i].classList.contains('action-plan-activity')) prefix = "[Atividade]";
+                else if (planListItems[i].classList.contains('action-plan-lifestyle')) prefix = "[Estilo de Vida]";
+                else if (planListItems[i].classList.contains('action-plan-general')) prefix = "[Geral]";
+            
+                const itemTextForPdf = `${prefix} ${itemText}`; 
+                
+                const itemTextLines=pdf.splitTextToSize(itemTextForPdf, contentWidth - S.INDENT);
+                const itemBlockHeight=itemTextLines.length*S.LINE_SPACING_SMALL+S.LINE_SPACING_ITEM;
+                currentY=checkAndAddPage(pdf,currentY,itemBlockHeight,S.PAGE_MARGIN);
+                if(currentY===S.PAGE_MARGIN && i > 0){ // If new page, re-set font
+                    pdf.setFontSize(S.FONT_SIZE_SMALL);
+                    pdf.setTextColor(S.COLOR_TEXT_PRIMARY);
+                } 
+                pdf.text(itemTextLines,S.PAGE_MARGIN+S.INDENT,currentY);
+                currentY+=itemBlockHeight;
+            }
+        } 
+        currentY+=S.LINE_SPACING_SMALL;
+        return currentY;
+    }
     function drawPdfDisclaimer(pdf, currentY, S, contentWidth) { const disclaimer="Lembre-se: os cálculos da OMS são simplificados para demonstração. Estas são sugestões gerais. Consulte sempre um profissional de saúde para aconselhamento personalizado.";const disclaimerLines=pdf.splitTextToSize(disclaimer,contentWidth);const disclaimerHeight=disclaimerLines.length*S.FONT_SIZE_XSMALL+S.LINE_SPACING_SMALL;currentY=checkAndAddPage(pdf,currentY,disclaimerHeight,S.PAGE_MARGIN);pdf.setFontSize(S.FONT_SIZE_XSMALL);pdf.setTextColor(S.COLOR_TEXT_SECONDARY);pdf.text(disclaimerLines,S.PAGE_MARGIN,currentY);currentY+=disclaimerHeight;return currentY;}
 
     if(ui.exportBtn) ui.exportBtn.onclick = () => {
@@ -766,7 +834,7 @@
                 for(let i = 1; i <= pageCount; i++) {
                     pdf.setPage(i);
                     pdf.setFontSize(S.FONT_SIZE_XSMALL);
-                    pdf.setTextColor(S.COLOR_TEXT_MUTED); // Ensure this color is defined in PDF_STYLES
+                    pdf.setTextColor(S.COLOR_TEXT_MUTED); 
                     pdf.text(`Página ${i} de ${pageCount}`, pdf.internal.pageSize.getWidth() / 2, pdf.internal.pageSize.getHeight() - (S.PAGE_MARGIN / 2), { align: 'center' });
                 }
 
@@ -801,5 +869,7 @@
   }); // End of DOMContentLoaded
   </script>
 </body>
+</html>
+
 </html>
 
